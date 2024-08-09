@@ -1,0 +1,14 @@
+mat-toolbar {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+}
+
+mat-sidenav {
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  width: 250px;
+}

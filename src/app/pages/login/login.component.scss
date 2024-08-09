@@ -1,0 +1,34 @@
+.div-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+form div {
+  padding: 5px;
+}
+
+form {
+  display: inline-grid;
+  width: 33%;
+  align-self: center;
+}
+
+.buttons {
+  align-content: flex-end;
+}
+
+@media screen and (max-width: 900px) {
+  form {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  form {
+    width: 90%;
+  }
+}
+
