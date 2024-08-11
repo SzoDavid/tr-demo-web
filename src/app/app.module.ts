@@ -10,6 +10,13 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
+import {HttpClientModule} from "@angular/common/http";
+import {JwtModule} from "@auth0/angular-jwt";
+
+
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 
 @NgModule({
   declarations: [
@@ -24,10 +31,18 @@ import {MatButtonModule} from "@angular/material/button";
     MatIconModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:8080'],
+        disallowedRoutes: ['localhost:8080/auth/login'],
+      }
+    })
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

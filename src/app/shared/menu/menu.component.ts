@@ -18,4 +18,9 @@ export class MenuComponent {
   close() {
     this.onCloseSidenav.emit(true);
   }
+
+  logout() {
+    this.selectedPage.emit('logout');
+    this.close();
+  }
 }

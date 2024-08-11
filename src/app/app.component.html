@@ -14,9 +14,10 @@
       </div>
       <div class="hidden sm:flex flex-1 justify-end">
         <ul class="flex gap-4 navigation-items">
-          <li *ngIf="loggedIn"><a routerLink="/">Keresés</a></li>
-          <li *ngIf="loggedIn"><a routerLink="/">Foglalások</a></li>
-          <li *ngIf="!loggedIn"><a routerLink="/">Profil</a></li>
+          <li *ngIf="loggedIn"><a routerLink="/admin">Admin</a></li>
+          <li *ngIf="loggedIn"><a routerLink="/student">Student</a></li>
+          <li *ngIf="loggedIn"><a routerLink="/teacher">Teacher</a></li>
+          <li *ngIf="loggedIn"><a (click)="logout()">Kijelentkezés</a></li>
           <li *ngIf="!loggedIn"><a routerLink="/login">Bejelentkezés</a></li>
         </ul>
       </div>
