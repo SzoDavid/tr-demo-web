@@ -37,4 +37,12 @@ export class SubjectService {
   create(subject: CreateSubject): Observable<Subject> {
     return this.http.post<Subject>('/api/admin/subjects/', subject);
   }
+
+  update(id: number, subject: CreateSubject): Observable<Subject> {
+    return this.http.put<Subject>(`/api/admin/subjects/${id}`, subject);
+  }
+
+  remove(id: number): Observable<{ success: boolean, message: string }> {
+    return this.http.delete<{ success: boolean, message: string }>(`/api/admin/subjects/${id}`);
+  }
 }

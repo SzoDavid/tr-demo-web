@@ -19,13 +19,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
+import { EditSubjectDialogComponent } from './edit-subject-dialog/edit-subject-dialog.component';
 
 
 @NgModule({
   declarations: [
     SubjectsComponent,
     NewSubjectDialogComponent,
-    SubjectDetailComponent
+    SubjectDetailComponent,
+    EditSubjectDialogComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
-<h1 mat-dialog-title>Új tárgy</h1>
-<form [formGroup]="createSubjectForm" (ngSubmit)="createSubject()">
+<h1 mat-dialog-title>{{ subject.name }} ({{ subject.id }}) szerkesztése</h1>
+<form [formGroup]="editSubjectForm">
   <mat-dialog-content>
     <mat-form-field>
       <mat-label>Név:</mat-label>
@@ -27,7 +27,8 @@
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-raised-button color="accent" type="submit">Létrehozás</button>
+    <button mat-raised-button color="accent" (click)="editSubject()">Mentés</button>
+    <button mat-raised-button color="warn" (click)="deleteSubject()">Törlés</button>
     <button mat-raised-button (click)="onCancel()">Mégse</button>
   </mat-dialog-actions>
 </form>

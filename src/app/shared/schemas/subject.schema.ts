@@ -1,9 +1,9 @@
-import {User} from "./user.schema";
+import {Course} from "./course.schema";
 
 export interface Subject {
   id: number;
   name: string;
   type: string;
   credit: number;
-  courses: {id: number, capacity: number, teacher: User}[]
+  courses: Course[]
 }

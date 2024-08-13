@@ -1,1 +1,43 @@
-<p>subject-detail works!</p>
+<div class="main_component">
+  <div class="title-bar">
+    <h1>{{ subject.name }}</h1>
+    <h2>{{ subject.type | subjectTypeFormat }}</h2>
+    <h2>kredit: {{ subject.credit }}</h2>
+    <button mat-icon-button matTooltip="Új kurzus"
+            [matTooltipShowDelay]="1000"
+            (click)="openNewCourseDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Szerkesztés"
+            [matTooltipShowDelay]="1000"
+            (click)="openEditSubjectDialog()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let course">{{ course.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kapacitás</th>
+      <td mat-cell *matCellDef="let course">{{ course.registeredStudentCount }}/{{ course.capacity }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="teacher">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tanár</th>
+      <td mat-cell *matCellDef="let course">
+        <span matTooltip="id: {{ course.teacher.id }}, e-mail: {{ course.teacher.email }}">{{ course.teacher.name }}</span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator #paginator
+                 [length]="subject.courses.length"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[10, 20, 50]"
+                 showFirstLastButtons></mat-paginator>
+</div>
