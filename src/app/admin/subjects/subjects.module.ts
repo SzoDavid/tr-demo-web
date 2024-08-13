@@ -20,6 +20,8 @@ import {MatOption, MatSelect} from "@angular/material/select";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
 import { EditSubjectDialogComponent } from './edit-subject-dialog/edit-subject-dialog.component';
+import { NewCourseDialogComponent } from './new-course-dialog/new-course-dialog.component';
+import { EditCourseDialogComponent } from './edit-course-dialog/edit-course-dialog.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { EditSubjectDialogComponent } from './edit-subject-dialog/edit-subject-d
     SubjectsComponent,
     NewSubjectDialogComponent,
     SubjectDetailComponent,
-    EditSubjectDialogComponent
+    EditSubjectDialogComponent,
+    NewCourseDialogComponent,
+    EditCourseDialogComponent
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,7 @@ import {MatSort} from "@angular/material/sort";
 import {SubjectService} from "../../shared/services/subject.service";
 import {MatDialog} from "@angular/material/dialog";
 import {NewSubjectDialogComponent} from "./new-subject-dialog/new-subject-dialog.component";
+import {EditSubjectDialogComponent} from "./edit-subject-dialog/edit-subject-dialog.component";
 
 @Component({
   selector: 'app-subjects',
@@ -27,7 +28,7 @@ export class SubjectsComponent {
     this.loadSubjectsPage();
   }
 
-  onPageChange(event: any) {
+  onPageChange(_: any) {
     this.loadSubjectsPage();
   }
 
@@ -42,7 +43,6 @@ export class SubjectsComponent {
     const sortDirection = this.sort ? this.sort.direction : 'asc';
 
     this.subjectService.getAll(pageIndex, pageSize, sortBy, sortDirection).subscribe(data => {
-      console.log(data);
       this.dataSource.data = data.content;
       this.totalElements = data.totalElements;
     });
@@ -51,6 +51,13 @@ export class SubjectsComponent {
   openNewDialog() {
     const dialogRef = this.dialog.open(NewSubjectDialogComponent, {width: '600px'});
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.loadSubjectsPage();
+    });
+  }
+
+  openEditDialog(subject: Subject) {
+    const dialogRef = this.dialog.open(EditSubjectDialogComponent, {width: '600px', data: {subject: subject}});
     dialogRef.afterClosed().subscribe(result => {
       if (result) this.loadSubjectsPage();
     });

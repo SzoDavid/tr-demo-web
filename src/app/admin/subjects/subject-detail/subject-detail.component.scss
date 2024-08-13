@@ -14,3 +14,23 @@
   font-weight: normal;
   margin: 0 10px;
 }
+
+.last-cell {
+  position: relative;
+}
+
+.edit-button {
+  display: none;
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: whitesmoke;
+}
+
+.mat-mdc-row:hover:hover .edit-button {
+  display: inline-block;
+}

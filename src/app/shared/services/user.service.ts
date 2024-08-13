@@ -22,7 +22,7 @@ export class UserService {
         .set("sortBy", `${sortBy},${sortDirection}`);
     }
 
-    return this.http.get<any>('/api/admin/users/', { params }).pipe(
+    return this.http.get<any>('/api/admin/users', { params }).pipe(
       map(response => ({
         content: response.content.map((user: any) => ({
           id: user.id,
@@ -35,8 +35,19 @@ export class UserService {
     );
   }
 
+  getTeachers(): Observable<User[]> {
+    return this.http.get<any>('/api/admin/users/teachers').pipe(
+      map(response => response.map((user: any) => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        roles: user.roles.map((role: any) => role.name)
+      })))
+    );
+  }
+
   create(user: CreateUser): Observable<User> {
-    return this.http.post<User>('/api/admin/users/', user);
+    return this.http.post<User>('/api/admin/users', user);
   }
 
   update(userId: number, roles: string[]): Observable<User> {

@@ -22,7 +22,7 @@ export class SubjectService {
         .set("sortBy", `${sortBy},${sortDirection}`);
     }
 
-    return this.http.get<{ content: Subject[], totalElements: number }>('/api/admin/subjects/', { params }).pipe(
+    return this.http.get<{ content: Subject[], totalElements: number }>('/api/admin/subjects', { params }).pipe(
       map(response => ({
         content: response.content,
         totalElements: response.totalElements
@@ -35,11 +35,15 @@ export class SubjectService {
   }
 
   create(subject: CreateSubject): Observable<Subject> {
-    return this.http.post<Subject>('/api/admin/subjects/', subject);
+    return this.http.post<Subject>('/api/admin/subjects', subject);
   }
 
   update(id: number, subject: CreateSubject): Observable<Subject> {
     return this.http.put<Subject>(`/api/admin/subjects/${id}`, subject);
+  }
+
+  addCourse(subjectId: number, course: { capacity: number, teacherId: number }): Observable<Subject> {
+    return this.http.post<Subject>(`/api/admin/subjects/${subjectId}/courses`, course);
   }
 
   remove(id: number): Observable<{ success: boolean, message: string }> {

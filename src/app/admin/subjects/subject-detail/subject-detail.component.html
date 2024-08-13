@@ -1,5 +1,10 @@
 <div class="main_component">
   <div class="title-bar">
+    <button mat-icon-button matTooltip="Vissza"
+            [matTooltipShowDelay]="1000"
+            [routerLink]="['../']">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
     <h1>{{ subject.name }}</h1>
     <h2>{{ subject.type | subjectTypeFormat }}</h2>
     <h2>kredit: {{ subject.credit }}</h2>
@@ -27,8 +32,13 @@
 
     <ng-container matColumnDef="teacher">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Tanár</th>
-      <td mat-cell *matCellDef="let course">
+      <td mat-cell *matCellDef="let course" class="last-cell">
         <span matTooltip="id: {{ course.teacher.id }}, e-mail: {{ course.teacher.email }}">{{ course.teacher.name }}</span>
+        <button mat-icon-button matTooltip="Szerkesztés"
+                [matTooltipShowDelay]="1000"
+                (click)="openEditCourseDialog(course)" class="edit-button">
+          <mat-icon>edit</mat-icon>
+        </button>
       </td>
     </ng-container>
 

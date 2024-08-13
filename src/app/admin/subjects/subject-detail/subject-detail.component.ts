@@ -8,6 +8,7 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {EditSubjectDialogComponent} from "../edit-subject-dialog/edit-subject-dialog.component";
+import {NewCourseDialogComponent} from "../new-course-dialog/new-course-dialog.component";
 
 @Component({
   selector: 'app-subject-detail',
@@ -48,7 +49,6 @@ export class SubjectDetailComponent {
       next: subject => {
         this.subject = subject;
         this.dataSource.data = subject.courses;
-        console.log(this.subject);
       },
       error: _ => {
         this.router.navigate(['../'], { relativeTo: this.route });
@@ -57,7 +57,10 @@ export class SubjectDetailComponent {
   }
 
   openNewCourseDialog() {
-
+    const dialogRef = this.dialog.open(NewCourseDialogComponent, {width: '600px', data: { subject: this.subject }});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.loadData();
+    });
   }
 
   openEditSubjectDialog() {
@@ -65,5 +68,9 @@ export class SubjectDetailComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) this.loadData();
     });
+  }
+
+  openEditCourseDialog(course: Course) {
+
   }
 }
