@@ -6,6 +6,7 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
   },
+  { path: 'subjects', loadChildren: () => import('./subjects/subjects.module').then(m => m.SubjectsModule) },
   {
     path: '**',
     redirectTo: 'users'

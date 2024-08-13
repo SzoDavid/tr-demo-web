@@ -17,7 +17,7 @@ export class NewDialogComponent {
   constructor(public dialogRef: MatDialogRef<NewDialogComponent>, private fb: FormBuilder, private userService: UserService, private snackBar: MatSnackBar) {
     this.createUserForm = this.fb.group(
       {
-        name: ['', Validators.required],
+        name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, this.validatePassword]],
         isAdmin: false,
@@ -60,7 +60,7 @@ export class NewDialogComponent {
       error: (err: any) => {
         this.loading = false;
         this.errorMessage = err.error.errors.join('<br>');
-        console.error('Login error:', err);
+        console.error('Create user error:', err);
       }
     });
   }
