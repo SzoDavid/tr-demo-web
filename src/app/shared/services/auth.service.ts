@@ -4,21 +4,19 @@ import {BehaviorSubject, catchError, map, Observable, tap, throwError} from 'rxj
 import {LoginResp} from "../schemas/login-resp.schema";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {User} from "../schemas/user.schema";
-import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly _apiUrl = '/api';
   private authStatusSubject: BehaviorSubject<boolean>;
 
-  constructor(private _http: HttpClient, private _jwtHelper: JwtHelperService, private _router: Router) {
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
     this.authStatusSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
   }
 
   isAuthenticated(): boolean {
-    return !this._jwtHelper.isTokenExpired();
+    return !this.jwtHelper.isTokenExpired();
   }
 
   getRoles(): string[] {
@@ -33,13 +31,13 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<LoginResp> {
-    return this._http.post<LoginResp>(`${this._apiUrl}/auth/login`, {
+    return this.http.post<LoginResp>('/api/auth/login', {
       email: email,
       password: password
     }).pipe(
       tap(response => {
         localStorage.setItem('access_token', response.token);
-        localStorage.setItem('roles', this._jwtHelper.decodeToken(response.token).roles);
+        localStorage.setItem('roles', this.jwtHelper.decodeToken(response.token).roles);
         this.updateAuthStatus();
       }),
       catchError(this.handleError)
@@ -53,7 +51,7 @@ export class AuthService {
   }
 
   getUserDetails(): Observable<User> {
-    return this._http.get<any>(`${this._apiUrl}/user/me`).pipe(
+    return this.http.get<any>('/api/user/me').pipe(
       map(response => this.mapToUser(response)),
       catchError(this.handleError)
     );

@@ -12,6 +12,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {HttpClientModule} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
+import {CommonModule} from "@angular/common";
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import {MatDialogActions, MatDialogContent} from "@angular/material/dialog";
 
 
 export function tokenGetter() {
@@ -21,9 +24,11 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    ConfirmDialogComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     MatNavList,
@@ -36,10 +41,15 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['localhost:8080'],
-        disallowedRoutes: ['localhost:8080/auth/login'],
+        allowedDomains: ['/api'],
+        disallowedRoutes: ['/api/auth/login'],
       }
-    })
+    }),
+    MatDialogContent,
+    MatDialogActions
+  ],
+  exports: [
+    CommonModule
   ],
   providers: [
     provideAnimationsAsync(),

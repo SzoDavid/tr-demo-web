@@ -5,6 +5,11 @@ mat-toolbar {
   left: 0;
 }
 
+mat-toolbar a:hover, mat-toolbar a:active {
+  color: lightgray;
+  cursor: pointer;
+}
+
 mat-sidenav {
   position: fixed;
   z-index: 1001;

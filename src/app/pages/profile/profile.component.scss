@@ -1,0 +1,17 @@
+.content {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+button {
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    width: 90%;
+  }
+}

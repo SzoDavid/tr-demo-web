@@ -1,26 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {accountGuard} from "./guards/account.guard";
-import {authGuard} from "./guards/auth.guard";
+import {accountGuard} from "./shared/guards/account.guard";
+import {authGuard} from "./shared/guards/auth.guard";
+import {roleGuard} from "./shared/guards/role.guard";
 
 const routes: Routes = [
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
-    canActivate: [authGuard],
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivateChild: [roleGuard],
     data: { role: 'ROLE_ADMIN' }
   },
   {
     path: 'student',
     loadChildren: () => import('./pages/student/student.module').then(m => m.StudentModule),
-    canActivate: [authGuard],
+    canActivateChild: [roleGuard],
     data: { role: 'ROLE_STUDENT' }
   },
   {
     path: 'teacher',
     loadChildren: () => import('./pages/teacher/teacher.module').then(m => m.TeacherModule),
-    canActivate: [authGuard],
+    canActivateChild: [roleGuard],
     data: { role: 'ROLE_TEACHER' }
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [authGuard]
   },
   {
     path: 'login',

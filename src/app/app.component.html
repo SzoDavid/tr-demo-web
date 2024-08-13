@@ -1,6 +1,11 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
-    <app-menu (selectedPage)="changePage($event)" (onCloseSidenav)="onSidenavClose($event, sidenav)" [loggedIn]="loggedIn"></app-menu>
+    <app-menu (selectedPage)="changePage($event)"
+              (onCloseSidenav)="onSidenavClose($event, sidenav)"
+              [loggedIn]="loggedIn"
+              [isAdmin]="isAdmin"
+              [isStudent]="isStudent"
+              [isTeacher]="isTeacher"></app-menu>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -14,10 +19,10 @@
       </div>
       <div class="hidden sm:flex flex-1 justify-end">
         <ul class="flex gap-4 navigation-items">
-          <li *ngIf="loggedIn"><a routerLink="/admin">Admin</a></li>
-          <li *ngIf="loggedIn"><a routerLink="/student">Student</a></li>
-          <li *ngIf="loggedIn"><a routerLink="/teacher">Teacher</a></li>
-          <li *ngIf="loggedIn"><a (click)="logout()">Kijelentkezés</a></li>
+          <li *ngIf="loggedIn && isAdmin"><a routerLink="/admin/users">Felhasználók</a></li>
+          <li *ngIf="loggedIn && isStudent"><a routerLink="/student">Student</a></li>
+          <li *ngIf="loggedIn && isTeacher"><a routerLink="/teacher">Teacher</a></li>
+          <li *ngIf="loggedIn"><a routerLink="/profile">Profil</a></li>
           <li *ngIf="!loggedIn"><a routerLink="/login">Bejelentkezés</a></li>
         </ul>
       </div>

@@ -3,9 +3,13 @@
     <mat-icon>home</mat-icon>
     <span>Főoldal</span>
   </a>
-  <a *ngIf="loggedIn" mat-list-item (click)="logout()">
-    <mat-icon>logout</mat-icon>
-    <span>Kijelentkezés</span>
+  <a *ngIf="loggedIn && isAdmin" mat-list-item routerLink="/admin/users" (click)="close()">
+    <mat-icon>group</mat-icon>
+    <span>Felhasználók</span>
+  </a>
+  <a *ngIf="loggedIn" mat-list-item routerLink="/profile" (click)="close()">
+    <mat-icon>account_circle</mat-icon>
+    <span>Profil</span>
   </a>
   <a *ngIf="!loggedIn" mat-list-item routerLink="/login" (click)="close()">
     <mat-icon>login</mat-icon>

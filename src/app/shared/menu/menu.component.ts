@@ -10,6 +10,9 @@ export class MenuComponent {
   @Output() onCloseSidenav = new EventEmitter<boolean>();
   @Input() currentPage!: string;
   @Input() loggedIn!: boolean;
+  @Input() isAdmin!: boolean;
+  @Input() isTeacher!: boolean;
+  @Input() isStudent!: boolean;
 
   menuSwitch() {
     this.selectedPage.emit(this.currentPage);
@@ -17,10 +20,5 @@ export class MenuComponent {
 
   close() {
     this.onCloseSidenav.emit(true);
-  }
-
-  logout() {
-    this.selectedPage.emit('logout');
-    this.close();
   }
 }

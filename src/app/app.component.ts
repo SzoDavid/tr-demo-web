@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
 import {MatSidenav} from "@angular/material/sidenav";
-import {AuthService} from "./services/auth.service";
+import {AuthService} from "./shared/services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +11,9 @@ import {AuthService} from "./services/auth.service";
 export class AppComponent {
   routes = new Array<string>();
   loggedIn = false;
+  isAdmin = false;
+  isTeacher = false;
+  isStudent = false;
 
   constructor(private _router: Router, private _authService: AuthService) {}
 
@@ -18,16 +21,17 @@ export class AppComponent {
     this.routes = this._router.config.map(conf => conf.path) as string[];
 
     this._authService.getAuthStatus().subscribe(
-      status => this.loggedIn = status
+      status => {
+        this.loggedIn = status;
+        const roles = this._authService.getRoles();
+        this.isAdmin = roles.includes('ROLE_ADMIN');
+        this.isTeacher = roles.includes('ROLE_TEACHER');
+        this.isStudent = roles.includes('ROLE_STUDENT');
+      }
     );
   }
 
   changePage(selectedPage: string) {
-    if (selectedPage === 'logout') {
-      this.logout();
-      return;
-    }
-
     this._router.navigateByUrl(selectedPage);
   }
 
@@ -41,8 +45,4 @@ export class AppComponent {
     sidenav.toggle();
   }
 
-  logout() {
-    this._authService.logout();
-    this._router.navigate(['/']);
-  }
 }
