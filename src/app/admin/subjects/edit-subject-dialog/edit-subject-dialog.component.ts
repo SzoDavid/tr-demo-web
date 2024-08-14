@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 import {SubjectService} from "../../../shared/services/subject.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {dialogConstants, snackBarConstants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-edit-subject-dialog',
@@ -36,6 +37,7 @@ export class EditSubjectDialogComponent {
   }
 
   editSubject() {
+    this.loading = true;
     this.subjectService.update(this.subject.id, {
       name: this.getFieldValue('name'),
       type: this.getFieldValue('type'),
@@ -44,7 +46,7 @@ export class EditSubjectDialogComponent {
       next: (response) => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.snackBar.open(`Tárgy sikeresen frissítve! Id: ${response.id}`, 'OK', {duration: 5000});
+        this.snackBar.open(`Tárgy sikeresen frissítve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
       error: (err: any) => {
         this.loading = false;
@@ -56,7 +58,7 @@ export class EditSubjectDialogComponent {
 
   deleteSubject() {
     const confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '200px',
+      width: dialogConstants.width.confirm,
       data: {
         message: 'Biztosan törli a tárgyat?',
         btnOkText: 'Igen',
@@ -67,11 +69,13 @@ export class EditSubjectDialogComponent {
     confirmDialogRef.afterClosed().subscribe(result => {
       if (!result) return;
 
+      this.loading = true;
+
       this.subjectService.remove(this.subject.id).subscribe({
         next: (_) => {
           this.loading = false;
           this.dialogRef.close(true);
-          this.snackBar.open(`Tárgy sikeresen törölve!`, 'OK', {duration: 5000});
+          this.snackBar.open(`Tárgy sikeresen törölve!`, 'OK', {duration: snackBarConstants.duration.success});
         },
         error: (err: any) => {
           this.loading = false;

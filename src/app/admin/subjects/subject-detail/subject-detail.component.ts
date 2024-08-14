@@ -9,6 +9,8 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {EditSubjectDialogComponent} from "../edit-subject-dialog/edit-subject-dialog.component";
 import {NewCourseDialogComponent} from "../new-course-dialog/new-course-dialog.component";
+import {EditCourseDialogComponent} from "../edit-course-dialog/edit-course-dialog.component";
+import {dialogConstants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-subject-detail',
@@ -57,20 +59,26 @@ export class SubjectDetailComponent {
   }
 
   openNewCourseDialog() {
-    const dialogRef = this.dialog.open(NewCourseDialogComponent, {width: '600px', data: { subject: this.subject }});
+    const dialogRef = this.dialog.open(NewCourseDialogComponent,
+      { width: dialogConstants.width.new, data: { subject: this.subject }});
     dialogRef.afterClosed().subscribe(result => {
       if (result) this.loadData();
     });
   }
 
   openEditSubjectDialog() {
-    const dialogRef = this.dialog.open(EditSubjectDialogComponent, {width: '600px', data: { subject: this.subject }});
+    const dialogRef = this.dialog.open(EditSubjectDialogComponent,
+      { width: dialogConstants.width.edit, data: { subject: this.subject }});
     dialogRef.afterClosed().subscribe(result => {
       if (result) this.loadData();
     });
   }
 
   openEditCourseDialog(course: Course) {
-
+    const dialogRef = this.dialog.open(EditCourseDialogComponent,
+      {width: dialogConstants.width.edit, data: {course: course }});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.loadData();
+    });
   }
 }

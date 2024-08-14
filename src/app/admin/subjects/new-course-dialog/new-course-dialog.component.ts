@@ -6,6 +6,7 @@ import {User} from "../../../shared/schemas/user.schema";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SubjectService} from "../../../shared/services/subject.service";
+import {snackBarConstants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-new-course-dialog',
@@ -41,7 +42,7 @@ export class NewCourseDialogComponent {
       error: err => {
         console.error(err);
         this.snackBar.open('Nem sikerült a létrehozáshoz szükséges adatokat betölteni, próbálja újra később!',
-          'OK', {duration: 5000});
+          'OK', {duration: snackBarConstants.duration.error});
         this.dialogRef.close(false);
       }
     });
@@ -58,7 +59,7 @@ export class NewCourseDialogComponent {
       next: (response) => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.snackBar.open(`Kurzus sikeresen mentve! Id: ${response.id}`, 'OK', {duration: 5000});
+        this.snackBar.open(`Kurzus sikeresen mentve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
       error: (err: any) => {
         this.loading = false;

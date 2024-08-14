@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
 import {SubjectService} from "../../../shared/services/subject.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {snackBarConstants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-new-subject-dialog',
@@ -42,7 +43,7 @@ export class NewSubjectDialogComponent {
       next: (response) => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.snackBar.open(`Tárgy sikeresen mentve! Id: ${response.id}`, 'OK', {duration: 5000});
+        this.snackBar.open(`Tárgy sikeresen mentve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
       error: (err: any) => {
         this.loading = false;

@@ -1,1 +1,29 @@
-<p>edit-course-dialog works!</p>
+<h1 mat-dialog-title>{{ course.id }} szerkesztése</h1>
+<form [formGroup]="editCourseForm">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Kapacitás:</mat-label>
+      <input matInput id="name" type="number" formControlName="capacity">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Tanár:</mat-label>
+      <mat-select formControlName="teacherId">
+        @for (teacher of teachers; track teacher) {
+          <mat-option value="{{ teacher.id }}">{{ teacher.name }} ({{ teacher.id }})</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <p *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </p>
+
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="accent" (click)="editCourse()">Mentés</button>
+    <button mat-raised-button color="warn" (click)="deleteCourse()">Törlés</button>
+    <button mat-raised-button (click)="onCancel()">Mégse</button>
+  </mat-dialog-actions>
+</form>

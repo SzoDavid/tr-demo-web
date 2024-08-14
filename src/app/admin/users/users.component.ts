@@ -7,6 +7,7 @@ import {MatSort} from "@angular/material/sort";
 import {EditDialogComponent} from "./edit-dialog/edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {NewDialogComponent} from "./new-dialog/new-dialog.component";
+import {dialogConstants} from "../../shared/constants";
 
 @Component({
   selector: 'app-users',
@@ -50,7 +51,7 @@ export class UsersComponent {
 
   openNewDialog() {
     const dialogRef = this.dialog.open(NewDialogComponent, {
-      width: '600px',
+      width: dialogConstants.width.new,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -60,7 +61,7 @@ export class UsersComponent {
 
   openEditDialog(user: User) {
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      width: '300px',
+      width: dialogConstants.width.edit,
       data: { user: user }
     });
 

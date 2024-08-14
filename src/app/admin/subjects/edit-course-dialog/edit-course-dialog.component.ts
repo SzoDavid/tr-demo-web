@@ -1,4 +1,13 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {Course} from "../../../shared/schemas/course.schema";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {User} from "../../../shared/schemas/user.schema";
+import {UserService} from "../../../shared/services/user.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {CourseService} from "../../../shared/services/course.service";
+import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
+import {dialogConstants, snackBarConstants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-edit-course-dialog',
@@ -6,5 +15,96 @@ import { Component } from '@angular/core';
   styleUrl: './edit-course-dialog.component.scss'
 })
 export class EditCourseDialogComponent {
+  course: Course;
+  teachers: User[] = [];
+  editCourseForm: FormGroup;
+  errorMessage: string | null = null;
+  loading = false;
 
+  constructor(public dialogRef: MatDialogRef<EditCourseDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: { course: Course },
+              private fb: FormBuilder,
+              private dialog: MatDialog,
+              private userService: UserService,
+              private courseService: CourseService,
+              private snackBar: MatSnackBar) {
+    this.course = data.course;
+    this.editCourseForm = this.fb.group({
+      capacity: [data.course.capacity, [Validators.required, Validators.min(data.course.registeredStudentCount)]],
+      teacherId: [data.course.teacher.id, Validators.required]
+    });
+  }
+
+  ngOnInit() {
+    this.userService.getTeachers().subscribe({
+      next: (data) => {
+        this.teachers = data;
+      },
+      error: err => {
+        console.error(err);
+        this.snackBar.open('Nem sikerült a szerkesztéshez szükséges adatokat betölteni, próbálja újra később!',
+          'OK', {duration: snackBarConstants.duration.error});
+        this.dialogRef.close(false);
+      }
+    });
+  }
+
+  getFieldValue(field: string): any {
+    return this.editCourseForm.get(field)?.value;
+  }
+
+  editCourse() {
+    this.loading = true;
+
+    this.courseService.update({
+      id: this.course.id,
+      capacity: this.getFieldValue('capacity'),
+      teacherId: this.getFieldValue('teacherId'),
+    }).subscribe({
+      next: (response) => {
+        this.loading = false;
+        this.dialogRef.close(true);
+        this.snackBar.open(`Kurzus sikeresen frissítve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
+      },
+      error: (err: any) => {
+        this.loading = false;
+        this.errorMessage = err.error.errors.join('<br>');
+        console.error('Edit error:', err);
+      }
+    });
+  }
+
+  deleteCourse() {
+    const confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: dialogConstants.width.confirm,
+      data: {
+        message: 'Biztosan törli a kurzust?',
+        btnOkText: 'Igen',
+        btnCancelText: 'Mégse'
+      }
+    });
+
+    confirmDialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+
+      this.loading = true;
+
+      this.courseService.remove(this.course.id).subscribe({
+        next: (_) => {
+          this.loading = false;
+          this.dialogRef.close(true);
+          this.snackBar.open(`Kurzus sikeresen törölve!`, 'OK', {duration: snackBarConstants.duration.success });
+        },
+        error: (err: any) => {
+          this.loading = false;
+          this.errorMessage = err.error;
+          console.error('Delete error:', err);
+        }
+      });
+    });
+  }
+
+  onCancel() {
+    this.dialogRef.close(false);
+  }
 }

@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
+import {snackBarConstants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-new-dialog',
@@ -14,7 +15,10 @@ export class NewDialogComponent {
   loading = false;
   errorMessage: string | null = null;
 
-  constructor(public dialogRef: MatDialogRef<NewDialogComponent>, private fb: FormBuilder, private userService: UserService, private snackBar: MatSnackBar) {
+  constructor(public dialogRef: MatDialogRef<NewDialogComponent>,
+              private fb: FormBuilder,
+              private userService: UserService,
+              private snackBar: MatSnackBar) {
     this.createUserForm = this.fb.group(
       {
         name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
@@ -55,7 +59,7 @@ export class NewDialogComponent {
       next: (response) => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.snackBar.open(`Felhasználó sikeresen mentve! Id: ${response.id}`, 'OK', {duration: 5000});
+        this.snackBar.open(`Felhasználó sikeresen mentve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
       error: (err: any) => {
         this.loading = false;

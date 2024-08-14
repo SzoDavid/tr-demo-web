@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
+import {dialogConstants, snackBarConstants} from "../../../shared/constants";
 
 @Component({
   selector: 'app-edit-dialog',
@@ -56,7 +57,7 @@ export class EditDialogComponent {
       next: (response) => {
         this.loading = false;
         this.dialogRef.close(true);
-        this.snackBar.open(`Felhasználó sikeresen frissítve! Id: ${response.id}`, 'OK', {duration: 5000});
+        this.snackBar.open(`Felhasználó sikeresen frissítve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
       error: (err: any) => {
         this.loading = false;
@@ -68,7 +69,7 @@ export class EditDialogComponent {
 
   deleteUser() {
     const confirmDialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '200px',
+      width: dialogConstants.width.confirm,
       data: {
         message: 'Biztosan törli a felhasználót?',
         btnOkText: 'Igen',
@@ -83,7 +84,7 @@ export class EditDialogComponent {
         next: (_) => {
           this.loading = false;
           this.dialogRef.close(true);
-          this.snackBar.open(`Felhasználó sikeresen törölve!`, 'OK', {duration: 5000});
+          this.snackBar.open(`Felhasználó sikeresen törölve!`, 'OK', {duration: snackBarConstants.duration.success});
         },
         error: (err: any) => {
           this.loading = false;

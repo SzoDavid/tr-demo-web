@@ -7,6 +7,7 @@ import {SubjectService} from "../../shared/services/subject.service";
 import {MatDialog} from "@angular/material/dialog";
 import {NewSubjectDialogComponent} from "./new-subject-dialog/new-subject-dialog.component";
 import {EditSubjectDialogComponent} from "./edit-subject-dialog/edit-subject-dialog.component";
+import {dialogConstants} from "../../shared/constants";
 
 @Component({
   selector: 'app-subjects',
@@ -49,7 +50,7 @@ export class SubjectsComponent {
   }
 
   openNewDialog() {
-    const dialogRef = this.dialog.open(NewSubjectDialogComponent, {width: '600px'});
+    const dialogRef = this.dialog.open(NewSubjectDialogComponent, {width: dialogConstants.width.new});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) this.loadSubjectsPage();
@@ -57,7 +58,8 @@ export class SubjectsComponent {
   }
 
   openEditDialog(subject: Subject) {
-    const dialogRef = this.dialog.open(EditSubjectDialogComponent, {width: '600px', data: {subject: subject}});
+    const dialogRef = this.dialog.open(EditSubjectDialogComponent,
+      {width: dialogConstants.width.edit, data: {subject: subject }});
     dialogRef.afterClosed().subscribe(result => {
       if (result) this.loadSubjectsPage();
     });
