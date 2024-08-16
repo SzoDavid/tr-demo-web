@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {User} from "../../shared/schemas/user.schema";
 import {Router} from "@angular/router";
 import {AuthService} from "../../shared/services/auth.service";

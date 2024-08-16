@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { MenuComponent } from './shared/menu/menu.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import {MenuComponent} from './shared/menu/menu.component';
 import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -13,8 +13,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {HttpClientModule} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import {CommonModule} from "@angular/common";
-import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
-import {MatDialogActions, MatDialogContent} from "@angular/material/dialog";
 
 
 export function tokenGetter() {
@@ -24,8 +22,7 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    ConfirmDialogComponent
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -44,9 +41,7 @@ export function tokenGetter() {
         allowedDomains: ['/api'],
         disallowedRoutes: ['/api/auth/login'],
       }
-    }),
-    MatDialogContent,
-    MatDialogActions
+    })
   ],
   exports: [
     CommonModule

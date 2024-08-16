@@ -25,6 +25,4 @@ export class ConfirmDialogComponent {
   public accept() {
     this.dialogRef.close(true);
   }
-
-  protected readonly confirm = confirm;
 }

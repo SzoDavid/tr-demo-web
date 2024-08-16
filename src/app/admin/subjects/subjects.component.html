@@ -7,54 +7,21 @@
       <mat-icon>add</mat-icon>
     </button>
   </div>
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="onSortChange()">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let subject">{{subject.id}}</td>
-    </ng-container>
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Név</th>
-      <td mat-cell *matCellDef="let subject" class="name-cell"><span matTooltip="Részletek" [routerLink]="['./', subject.id]">{{subject.name}}</span></td>
-    </ng-container>
-
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Típus</th>
-      <td mat-cell *matCellDef="let subject">{{subject.type | subjectTypeFormat }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="credit">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kredit</th>
-      <td mat-cell *matCellDef="let subject">{{subject.credit}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="nCourses">
-      <th mat-header-cell *matHeaderCellDef>Kurzusok</th>
-      <td mat-cell *matCellDef="let subject" class="last-cell">
-        <span>{{subject.courses.length}}</span>
-        <div class="edit-button">
-          <button mat-icon-button matTooltip="Részletek"
-                  [matTooltipShowDelay]="1000"
-                  [routerLink]="['./', subject.id]">
-            <mat-icon>more_horiz</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Szerkesztés"
-                  [matTooltipShowDelay]="1000"
-                  (click)="openEditDialog(subject)" >
-            <mat-icon>edit</mat-icon>
-          </button>
-        </div>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator #paginator
-                 [length]="totalElements"
-                 [pageSize]="10"
-                 [pageSizeOptions]="[10, 20, 50]"
-                 showFirstLastButtons
-                 (page)="onPageChange($event)"></mat-paginator>
+  <app-reusable-table #reusableTable
+                      [columns]="columns"
+                      [actionsTemplate]="actionsTemplate"
+                      [fetchData]="subjectService.getAll.bind(subjectService)"></app-reusable-table>
+  <ng-template #actionsTemplate let-element>
+    <button mat-icon-button matTooltip="Részletek"
+            [matTooltipShowDelay]="1000"
+            (click)="onDetails(element)">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Szerkesztés"
+            [matTooltipShowDelay]="1000"
+            (click)="openEditDialog(element)" >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </ng-template>
 </div>

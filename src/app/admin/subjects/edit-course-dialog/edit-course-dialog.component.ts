@@ -6,8 +6,8 @@ import {User} from "../../../shared/schemas/user.schema";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CourseService} from "../../../shared/services/course.service";
-import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 import {dialogConstants, snackBarConstants} from "../../../shared/constants";
+import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-edit-course-dialog',

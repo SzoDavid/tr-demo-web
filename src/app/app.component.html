@@ -21,8 +21,9 @@
         <ul class="flex gap-4 navigation-items">
           <li *ngIf="loggedIn && isAdmin"><a routerLink="/admin/users">Felhasználók</a></li>
           <li *ngIf="loggedIn && isAdmin"><a routerLink="/admin/subjects">Tárgyak</a></li>
-          <li *ngIf="loggedIn && isStudent"><a routerLink="/student">Student</a></li>
-          <li *ngIf="loggedIn && isTeacher"><a routerLink="/teacher">Teacher</a></li>
+          <li *ngIf="loggedIn && isStudent"><a routerLink="/student/available-subjects">Elérhető tárgyak</a></li>
+          <li *ngIf="loggedIn && isStudent"><a routerLink="/student/taken-subjects">Felvett tárgyak</a></li>
+          <li *ngIf="loggedIn && isTeacher"><a routerLink="/teacher">Kurzusok</a></li>
           <li *ngIf="loggedIn"><a routerLink="/profile">Profil</a></li>
           <li *ngIf="!loggedIn"><a routerLink="/login">Bejelentkezés</a></li>
         </ul>

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SubjectsComponent } from './subjects.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {SubjectsComponent} from './subjects.component';
 import {SubjectDetailComponent} from "./subject-detail/subject-detail.component";
 
 const routes: Routes = [{ path: '', component: SubjectsComponent }, { path: ':id', component: SubjectDetailComponent }];

@@ -1,52 +1,32 @@
 import {Component, ViewChild} from '@angular/core';
 import {User} from "../../shared/schemas/user.schema";
-import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
 import {UserService} from "../../shared/services/user.service";
-import {MatSort} from "@angular/material/sort";
 import {EditDialogComponent} from "./edit-dialog/edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {NewDialogComponent} from "./new-dialog/new-dialog.component";
 import {dialogConstants} from "../../shared/constants";
+import {RoleFormatPipe} from "../../shared/pipes/role-format.pipe";
+import {ColumnDefinition, ReusableTableComponent} from "../../shared/reusable-table/reusable-table.component";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss'
+  styleUrl: './users.component.scss',
+  providers: [RoleFormatPipe]
 })
 export class UsersComponent {
-  displayedColumns: string[] = ['id', 'name', 'email', 'roles'];
-  dataSource = new MatTableDataSource<User>();
-  totalElements = 0;
+  columns: Array<ColumnDefinition> = [
+    { def: 'id', header: 'ID', sortable: true, cell: (user: User) => `${user.id}`},
+    { def: 'name', header: 'Név', sortable: true, cell: (user: User) => `${user.name}`},
+    { def: 'email', header: 'E-mail', sortable: true, cell: (user: User) => `${user.email}`},
+    { def: 'roles', header: 'Szerepkör', sortable: true, cell: (user: User) => `${this.roleFormat.transform(user.roles)}`}
+  ];
+  @ViewChild('reusableTable') reusableTable?: ReusableTableComponent;
 
-  @ViewChild('paginator', {static: false}) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  constructor(protected userService: UserService,
+              private dialog: MatDialog,
+              private roleFormat: RoleFormatPipe) {}
 
-  constructor(private userService: UserService, private dialog: MatDialog) {}
-
-  ngAfterViewInit() {
-    this.loadUsersPage();
-  }
-
-  onPageChange(event: any) {
-    this.loadUsersPage();
-  }
-
-  onSortChange() {
-    this.loadUsersPage();
-  }
-
-  loadUsersPage() {
-    const pageIndex = this.paginator ? this.paginator.pageIndex : 0;
-    const pageSize = this.paginator ? this.paginator.pageSize : 10;
-    const sortBy = this.sort ? this.sort.active : 'id';
-    const sortDirection = this.sort ? this.sort.direction : 'asc';
-    
-    this.userService.getAll(pageIndex, pageSize, sortBy, sortDirection).subscribe(data => {
-      this.dataSource.data = data.content;
-      this.totalElements = data.totalElements;
-    });
-  }
 
   openNewDialog() {
     const dialogRef = this.dialog.open(NewDialogComponent, {
@@ -54,7 +34,7 @@ export class UsersComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.loadUsersPage();
+      if (result && this.reusableTable) this.reusableTable.loadPage();
     });
   }
 
@@ -65,7 +45,7 @@ export class UsersComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.loadUsersPage();
+      if (result && this.reusableTable) this.reusableTable.loadPage()
     });
   }
 }
