@@ -4,6 +4,7 @@ import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatDialogRef} from "@angular/material/dialog";
 import {snackBarConstants} from "../../../shared/constants";
+import {PasswordValidator} from "../../../shared/validators/password.validator";
 
 @Component({
   selector: 'app-new-dialog',
@@ -23,16 +24,11 @@ export class NewDialogComponent {
       {
         name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, this.validatePassword]],
+        password: ['', [Validators.required, PasswordValidator.password]],
         isAdmin: false,
         isTeacher: false,
         isStudent: false
       });
-  }
-
-  validatePassword(control: any) {
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
-    return passwordRegex.test(control.value) ? null : {invalidPassword: true};
   }
 
   getFieldValue(field: string): any {

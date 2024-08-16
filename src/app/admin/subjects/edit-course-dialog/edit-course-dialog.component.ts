@@ -54,6 +54,8 @@ export class EditCourseDialogComponent {
   }
 
   editCourse() {
+    this.errorMessage = null;
+    if (this.editCourseForm.invalid) return;
     this.loading = true;
 
     this.courseService.update({
@@ -88,6 +90,7 @@ export class EditCourseDialogComponent {
       if (!result) return;
 
       this.loading = true;
+      this.errorMessage = null;
 
       this.courseService.remove(this.course.id).subscribe({
         next: (_) => {

@@ -54,6 +54,10 @@ export class UserService {
     return this.http.put<User>(`/api/admin/users/${userId}`, { roles: roles });
   }
 
+  changePassword(oldPassword: string, newPassword: string): Observable<{ success: boolean, message: string }> {
+    return this.http.put<{ success: boolean, message: string }>('/api/user/me/change-password', { oldPassword: oldPassword, newPassword: newPassword });
+  }
+
   remove(userId: number): Observable<{ success: boolean, message: string }> {
     return this.http.delete<{ success: boolean, message: string }>(`/api/admin/users/${userId}`);
   }

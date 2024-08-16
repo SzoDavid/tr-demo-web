@@ -45,6 +45,8 @@ export class EditDialogComponent {
   }
 
   editUser() {
+    this.errorMessage = null;
+    if (this.editUserForm.invalid) return;
     this.loading = true;
 
     const roles = [];
@@ -79,6 +81,8 @@ export class EditDialogComponent {
 
     confirmDialogRef.afterClosed().subscribe(result => {
       if (!result) return;
+      this.loading = true;
+      this.errorMessage = null;
 
       this.userService.remove(this.user.id).subscribe({
         next: (_) => {

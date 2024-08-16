@@ -53,6 +53,10 @@ export class NewCourseDialogComponent {
   }
 
   createCourse() {
+    this.errorMessage = null;
+    if (this.createCourseForm.invalid) return;
+    this.loading = true;
+
     this.subjectService.addCourse(this.subject.id, {
       capacity: this.getFieldValue('capacity'),
       teacherId: this.getFieldValue('teacherId') }).subscribe({

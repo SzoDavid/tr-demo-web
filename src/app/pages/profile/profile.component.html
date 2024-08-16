@@ -4,11 +4,12 @@
       <mat-card-title>Profil</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>Név: {{user.name}}</p>
-      <p>E-mail: {{user.email}}</p>
+      <p><span class="title">Név:</span> {{user.name}}</p>
+      <p><span class="title">E-mail:</span> {{user.email}}</p>
+      <button mat-raised-button (click)="openChangePasswordDialog()">Jelszó megváltoztatása</button>
     </mat-card-content>
     <mat-card-actions class="flex justify-end">
-      <button mat-button (click)="onLogout()">Kijelentkezés</button>
+      <button mat-raised-button color="accent" (click)="onLogout()">Kijelentkezés</button>
     </mat-card-actions>
   </mat-card>
 </div>

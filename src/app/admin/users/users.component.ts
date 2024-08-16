@@ -41,8 +41,7 @@ export class UsersComponent {
     const pageSize = this.paginator ? this.paginator.pageSize : 10;
     const sortBy = this.sort ? this.sort.active : 'id';
     const sortDirection = this.sort ? this.sort.direction : 'asc';
-
-
+    
     this.userService.getAll(pageIndex, pageSize, sortBy, sortDirection).subscribe(data => {
       this.dataSource.data = data.content;
       this.totalElements = data.totalElements;

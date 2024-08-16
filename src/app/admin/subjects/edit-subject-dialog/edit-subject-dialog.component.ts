@@ -37,6 +37,8 @@ export class EditSubjectDialogComponent {
   }
 
   editSubject() {
+    this.errorMessage = null;
+    if (this.editSubjectForm.invalid) return;
     this.loading = true;
     this.subjectService.update(this.subject.id, {
       name: this.getFieldValue('name'),
@@ -70,6 +72,7 @@ export class EditSubjectDialogComponent {
       if (!result) return;
 
       this.loading = true;
+      this.errorMessage = null;
 
       this.subjectService.remove(this.subject.id).subscribe({
         next: (_) => {

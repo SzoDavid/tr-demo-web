@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import {User} from "../../shared/schemas/user.schema";
 import {Router} from "@angular/router";
 import {AuthService} from "../../shared/services/auth.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ChangePasswordDialogComponent} from "./change-password-dialog/change-password-dialog.component";
+import {dialogConstants} from "../../shared/constants";
 
 @Component({
   selector: 'app-profile',
@@ -11,19 +14,25 @@ import {AuthService} from "../../shared/services/auth.service";
 export class ProfileComponent {
   user: User;
 
-  constructor(private _router: Router, private _authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private dialog: MatDialog) {
     this.user = {email: "", id: 0, name: "", roles: []};
     this.loadData();
   }
 
   loadData() {
-    this._authService.getUserDetails().subscribe(user => {
+    this.authService.getUserDetails().subscribe(user => {
       this.user = user;
     })
   }
 
   onLogout() {
-    this._authService.logout();
-    this._router.navigate(['/']);
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  openChangePasswordDialog() {
+    this.dialog.open(ChangePasswordDialogComponent, {
+      width: dialogConstants.width.edit,
+    });
   }
 }
