@@ -58,6 +58,7 @@ export class StudentSubjectDetailsComponent {
           error: err => {
             if (err.status != 404) console.error(err);
             this.dataSource.data = subject.courses;
+            this.takenCourseId = undefined;
           }
         })
       },
