@@ -41,7 +41,7 @@ export class SubjectDetailComponent {
     this.loadData()
   }
 
-  ngOnViewInit() {
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
