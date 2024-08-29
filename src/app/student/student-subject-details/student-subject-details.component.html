@@ -1,0 +1,63 @@
+<div class="main_component">
+  <div class="title-bar">
+    <ng-container *ngIf="takenCourseId; else notTakenBackButton">
+      <button mat-icon-button matTooltip="Vissza a felvett kurzusokhoz"
+              [matTooltipShowDelay]="1000"
+              [routerLink]="['../../taken-courses']">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </ng-container>
+    <ng-template #notTakenBackButton>
+      <button mat-icon-button matTooltip="Vissza az elérhető tárgyakhoz"
+              [matTooltipShowDelay]="1000"
+              [routerLink]="['../../available-subjects']">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+    </ng-template>
+    <h1>{{ subject.name }}</h1>
+    <h2>{{ subject.type | subjectTypeFormat }}</h2>
+    <h2>kredit: {{ subject.credit }}</h2>
+  </div>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let course">{{ course.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="capacity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kapacitás</th>
+      <td mat-cell *matCellDef="let course">{{ course.registeredStudentCount }}/{{ course.capacity }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="teacher">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tanár</th>
+      <td mat-cell *matCellDef="let course" class="last-cell">
+        <span matTooltip="E-mail: {{ course.teacher.email }}">{{ course.teacher.name }}</span>
+        <ng-container *ngIf="course.id == takenCourseId">
+          <button mat-icon-button matTooltip="Kurzus leadása"
+                  [matTooltipShowDelay]="1000"
+                  (click)="dropCourse(course)"
+                  class="edit-button">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="!takenCourseId">
+          <button mat-icon-button matTooltip="Kurzus felvétele"
+                  [matTooltipShowDelay]="1000"
+                  (click)="addCourse(course)"
+                  class="edit-button">
+            <mat-icon>add</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{takenRow: takenCourseId == row.id}"></tr>
+  </table>
+  <mat-paginator #paginator
+                 [length]="subject.courses.length"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[10, 20, 50]"
+                 showFirstLastButtons></mat-paginator>
+</div>

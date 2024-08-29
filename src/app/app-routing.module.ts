@@ -33,6 +33,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
     canActivate: [accountGuard]
   },
+  { path: 'not-found',
+    loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule)
+  },
   {
     path: '',
     pathMatch: 'full',

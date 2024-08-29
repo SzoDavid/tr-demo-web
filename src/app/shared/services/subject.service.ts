@@ -14,9 +14,8 @@ export class SubjectService {
     return this.getPaginated('/api/admin/subjects', page, size, sortBy, sortDirection);
   }
 
-  getTaken(page: number, size: number, sortBy: string, sortDirection: string): Observable<{ content: Subject[], totalElements: number }> {
+  getAvailable(page: number, size: number, sortBy: string, sortDirection: string): Observable<{ content: Subject[], totalElements: number }> {
     return this.getPaginated('/api/student/available', page, size, sortBy, sortDirection);
-
   }
 
   get(id: number): Observable<Subject> {

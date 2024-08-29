@@ -1,11 +1,11 @@
 <div class="main_component">
   <div class="title-bar">
-    <h1>Elérhető tárgyak</h1>
+    <h1>Felvett kurzusok</h1>
   </div>
   <app-reusable-table
-                      [columns]="columns"
-                      [actionsTemplate]="actionsTemplate"
-                      [fetchData]="subjectService.getAvailable.bind(subjectService)"></app-reusable-table>
+    [columns]="columns"
+    [actionsTemplate]="actionsTemplate"
+    [fetchData]="courseService.getTaken.bind(courseService)"></app-reusable-table>
   <ng-template #actionsTemplate let-element>
     <button mat-icon-button
             matTooltip="Részletek"

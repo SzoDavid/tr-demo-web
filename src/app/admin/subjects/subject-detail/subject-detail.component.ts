@@ -53,7 +53,7 @@ export class SubjectDetailComponent {
         this.dataSource.data = subject.courses;
       },
       error: _ => {
-        this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(['not-found']);
       }
     });
   }

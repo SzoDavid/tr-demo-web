@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .title-bar {
   margin-top: 20px;
   margin-bottom: 5px;
@@ -25,4 +27,8 @@
   right: 25px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.takenRow {
+  background-color: beige;
 }

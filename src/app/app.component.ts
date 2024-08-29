@@ -15,15 +15,15 @@ export class AppComponent {
   isTeacher = false;
   isStudent = false;
 
-  constructor(private _router: Router, private _authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.routes = this._router.config.map(conf => conf.path) as string[];
+    this.routes = this.router.config.map(conf => conf.path) as string[];
 
-    this._authService.getAuthStatus().subscribe(
+    this.authService.getAuthStatus().subscribe(
       status => {
         this.loggedIn = status;
-        const roles = this._authService.getRoles();
+        const roles = this.authService.getRoles();
         this.isAdmin = roles.includes('ROLE_ADMIN');
         this.isTeacher = roles.includes('ROLE_TEACHER');
         this.isStudent = roles.includes('ROLE_STUDENT');
@@ -32,7 +32,7 @@ export class AppComponent {
   }
 
   changePage(selectedPage: string) {
-    this._router.navigateByUrl(selectedPage);
+    this.router.navigateByUrl(selectedPage);
   }
 
   onSidenavClose(event: any, sidenav: MatSidenav) {

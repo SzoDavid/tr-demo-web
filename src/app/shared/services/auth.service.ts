@@ -57,6 +57,10 @@ export class AuthService {
     );
   }
 
+  getAverage(): Observable<{ average: number, hasAverage: boolean }> {
+    return this.http.get<{ average: number, hasAverage: boolean }>('/api/student/average');
+  }
+
   private mapToUser(response: any): User {
     return {
       id: response.id,
