@@ -1,0 +1,28 @@
+<div class="main_component">
+  <div class="title-bar">
+    <button mat-icon-button matTooltip="Vissza a felvett kurzusokhoz"
+            [matTooltipShowDelay]="1000"
+            [routerLink]="['../taken-courses']">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Órarend</h1>
+  </div>
+
+  <mat-grid-list cols="8" rowHeight="{{ rowHeight }}px" gutterSize="0px">
+    <mat-grid-tile *ngFor="let tile of tiles"
+                   colspan="1"
+                   [rowspan]="tile.height"
+                   [ngClass]="getClass(tile.id)">
+      <ng-container *ngIf="getClass(tile.id) === 'element'; else defaultContent">
+        <div class="tile-content" matTooltip="{{ tile.text }}"
+             [matTooltipShowDelay]="1000"
+             [routerLink]="['../subjects', tile.id]">
+          {{tile.text}}
+        </div>
+      </ng-container>
+      <ng-template #defaultContent>
+        <div class="tile-content">{{tile.text}}</div>
+      </ng-template>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

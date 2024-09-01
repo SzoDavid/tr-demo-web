@@ -5,9 +5,6 @@ import {CourseService} from "../../shared/services/course.service";
 import {SubjectTypeFormatPipe} from "../../shared/pipes/subject-type-format.pipe";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DayFormatPipe} from "../../shared/pipes/day-format.pipe";
-import {dialogConstants} from "../../shared/constants";
-import {MatDialog} from "@angular/material/dialog";
-import {TimetableDialogComponent} from "../timetable-dialog/timetable-dialog.component";
 
 @Component({
   selector: 'app-taken-courses',
@@ -28,15 +25,9 @@ export class TakenCoursesComponent {
               private subjectTypeFormat: SubjectTypeFormatPipe,
               private dayFormat: DayFormatPipe,
               private router: Router,
-              private route: ActivatedRoute,
-              private dialog: MatDialog) {}
+              private route: ActivatedRoute) {}
 
   onDetails(element: Course) {
     this.router.navigate(['../subjects', element.subject.id], {relativeTo: this.route});
-  }
-
-  openTimetableDialog() {
-    this.dialog.open(TimetableDialogComponent,
-      {width: dialogConstants.width.edit});
   }
 }

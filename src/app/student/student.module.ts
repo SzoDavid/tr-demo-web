@@ -22,8 +22,9 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {SubjectTypeFormatPipe} from "../shared/pipes/subject-type-format.pipe";
 import {DayFormatPipe} from "../shared/pipes/day-format.pipe";
-import { TimetableDialogComponent } from './timetable-dialog/timetable-dialog.component';
 import {MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import { TimetableComponent } from './timetable/timetable.component';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import {MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
     AvailableSubjectsComponent,
     StudentSubjectDetailsComponent,
     TakenCoursesComponent,
-    TimetableDialogComponent
+    TimetableComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +57,9 @@ import {MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
     MatHeaderCellDef,
     DayFormatPipe,
     MatDialogTitle,
-    MatDialogContent
+    MatDialogContent,
+    MatGridList,
+    MatGridTile
   ]
 })
 export class StudentModule { }
