@@ -30,7 +30,10 @@ export class NewCourseDialogComponent {
 
     this.createCourseForm = this.fb.group({
       capacity: ['', [Validators.required, Validators.min(0)]],
-      teacherId: ['', Validators.required]
+      teacherId: ['', Validators.required],
+      day: ['', Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
     });
   }
 
@@ -59,7 +62,13 @@ export class NewCourseDialogComponent {
 
     this.subjectService.addCourse(this.subject.id, {
       capacity: this.getFieldValue('capacity'),
-      teacherId: this.getFieldValue('teacherId') }).subscribe({
+      teacherId: this.getFieldValue('teacherId'),
+      schedule: {
+        day: this.getFieldValue('day'),
+        startTime: this.getFieldValue('startTime'),
+        endTime: this.getFieldValue('endTime'),
+      }
+    }).subscribe({
       next: (response) => {
         this.loading = false;
         this.dialogRef.close(true);

@@ -10,10 +10,28 @@
       <mat-label>Tanár:</mat-label>
       <mat-select formControlName="teacherId">
         <mat-option>--</mat-option>
-        @for (teacher of teachers; track teacher) {
-          <mat-option value="{{ teacher.id }}">{{ teacher.name }} ({{ teacher.id }})</mat-option>
-        }
+        <mat-option *ngFor="let teacher of teachers"
+                    value="{{ teacher.id }}">{{ teacher.name }} ({{ teacher.id }})</mat-option>
       </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nap:</mat-label>
+      <mat-select formControlName="day">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let day of [1,2,3,4,5,6,7]"
+                    value="{{ day }}">{{ day|dayFormat }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Kezdés:</mat-label>
+      <input matInput id="startTime" type="time" formControlName="startTime">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Vége:</mat-label>
+      <input matInput id="endTime" type="time" formControlName="endTime">
     </mat-form-field>
 
     <p *ngIf="errorMessage" class="error-message">

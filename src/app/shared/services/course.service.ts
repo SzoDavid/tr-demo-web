@@ -1,18 +1,26 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 import {Course} from "../schemas/course.schema";
+import {PaginationService} from "./pagination.service";
+
+export interface CoursePage {
+  content: Course[],
+  totalElements: number
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private paginationService: PaginationService) { }
 
-  update(course: { id: number, capacity: number, teacherId: number }): Observable<Course> {
+  update(course: { id: number, capacity: number, teacherId: number, schedule: { day: number, startTime: string, endTime: string } }): Observable<Course> {
     return this.http.put<Course>(`/api/admin/courses/${course.id}`, {
       capacity: course.capacity,
-      teacherId: course.teacherId
+      teacherId: course.teacherId,
+      schedule: course.schedule
     });
   }
 
@@ -20,28 +28,16 @@ export class CourseService {
     return this.http.delete<{ success: boolean, message: string }>(`/api/admin/courses/${id}`);
   }
 
-  getTaken(page: number, size: number, sortBy: string, sortDirection: string): Observable<{ content: Course[], totalElements: number }> {
-    let params = new HttpParams()
-      .set("offset", page)
-      .set("pageSize", size);
-
-    if (sortDirection != '') {
-      params = new HttpParams()
-        .set("offset", page)
-        .set("pageSize", size)
-        .set("sortBy", `${sortBy},${sortDirection}`);
-    }
-
-    return this.http.get<{ content: Course[], totalElements: number }>('/api/student/taken-courses', { params }).pipe(
-      map(response => ({
-        content: response.content,
-        totalElements: response.totalElements
-      }))
-    );
+  getTaken(page: number, size: number, sortBy: string, sortDirection: string): Observable<CoursePage> {
+    return this.paginationService.getPaginated<Course>('/api/student/taken-courses', page, size, sortBy, sortDirection);
   }
 
   getTakenOfSubject(subjectId: number): Observable<Course> {
     return this.http.get<Course>(`/api/student/subject/${subjectId}/get-taken-course`);
+  }
+
+  getAssigned(page: number, size: number, sortBy: string, sortDirection: string): Observable<CoursePage> {
+    return this.paginationService.getPaginated<Course>('/api/teacher/courses', page, size, sortBy, sortDirection);
   }
 
   registerCourse(id: number): Observable<{ success: boolean, message: string }> {

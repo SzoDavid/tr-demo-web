@@ -7,5 +7,8 @@ export interface Course {
   capacity: number,
   registeredStudentCount: number,
   teacher: User,
-  subject: Subject
+  subject: Subject,
+  day: number,
+  startTime: string,
+  endTime: string
 }

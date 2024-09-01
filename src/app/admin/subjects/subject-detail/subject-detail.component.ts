@@ -25,7 +25,7 @@ export class SubjectDetailComponent {
     credit: 0,
     courses: []
   };
-  displayedColumns: string[] = ['id', 'capacity', 'teacher'];
+  displayedColumns: string[] = ['id', 'capacity', 'time', 'teacher'];
   dataSource = new MatTableDataSource<Course>();
 
   @ViewChild('paginator', {static: false}) paginator!: MatPaginator;

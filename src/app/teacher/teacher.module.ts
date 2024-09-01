@@ -2,16 +2,24 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {TeacherRoutingModule} from './teacher-routing.module';
-import {TeacherComponent} from './teacher.component';
+import { AssignedCoursesComponent } from './assigned-courses/assigned-courses.component';
+import {MatIcon} from "@angular/material/icon";
+import {MatIconButton} from "@angular/material/button";
+import {MatTooltip} from "@angular/material/tooltip";
+import {ReusableTableModule} from "../shared/reusable-table/reusable-table.module";
 
 
 @NgModule({
   declarations: [
-    TeacherComponent
+    AssignedCoursesComponent
   ],
   imports: [
     CommonModule,
-    TeacherRoutingModule
+    TeacherRoutingModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    ReusableTableModule
   ]
 })
 export class TeacherModule { }

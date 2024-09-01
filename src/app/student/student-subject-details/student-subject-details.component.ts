@@ -24,7 +24,7 @@ export class StudentSubjectDetailsComponent {
     courses: []
   };
   takenCourseId: number|undefined;
-  displayedColumns: string[] = ['id', 'capacity', 'teacher'];
+  displayedColumns: string[] = ['id', 'capacity', 'day', 'teacher'];
   dataSource = new MatTableDataSource<Course>();
 
   @ViewChild('paginator', {static: false}) paginator!: MatPaginator;

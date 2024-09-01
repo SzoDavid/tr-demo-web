@@ -1,21 +1,28 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Subject} from "../schemas/subject.schema";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {CreateSubject} from "../schemas/create-subject.schema";
+import {PaginationService} from "./pagination.service";
+
+export interface SubjectPage {
+  content: Subject[],
+  totalElements: number
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private paginationService: PaginationService) { }
 
-  getAll(page: number, size: number, sortBy: string, sortDirection: string): Observable<{ content: Subject[], totalElements: number }> {
-    return this.getPaginated('/api/admin/subjects', page, size, sortBy, sortDirection);
+  getAll(page: number, size: number, sortBy: string, sortDirection: string): Observable<SubjectPage> {
+    return this.paginationService.getPaginated<Subject>('/api/admin/subjects', page, size, sortBy, sortDirection);
   }
 
-  getAvailable(page: number, size: number, sortBy: string, sortDirection: string): Observable<{ content: Subject[], totalElements: number }> {
-    return this.getPaginated('/api/student/available', page, size, sortBy, sortDirection);
+  getAvailable(page: number, size: number, sortBy: string, sortDirection: string): Observable<SubjectPage> {
+    return this.paginationService.getPaginated<Subject>('/api/student/available', page, size, sortBy, sortDirection);
   }
 
   get(id: number): Observable<Subject> {
@@ -30,31 +37,11 @@ export class SubjectService {
     return this.http.put<Subject>(`/api/admin/subjects/${id}`, subject);
   }
 
-  addCourse(subjectId: number, course: { capacity: number, teacherId: number }): Observable<Subject> {
+  addCourse(subjectId: number, course: { capacity: number, teacherId: number, schedule: { day: number, startTime: string, endTime: string } }): Observable<Subject> {
     return this.http.post<Subject>(`/api/admin/subjects/${subjectId}/courses`, course);
   }
 
   remove(id: number): Observable<{ success: boolean, message: string }> {
     return this.http.delete<{ success: boolean, message: string }>(`/api/admin/subjects/${id}`);
-  }
-
-  private getPaginated(url: string, page: number, size: number, sortBy: string, sortDirection: string): Observable<{ content: Subject[], totalElements: number }> {
-    let params = new HttpParams()
-      .set("offset", page)
-      .set("pageSize", size);
-
-    if (sortDirection != '') {
-      params = new HttpParams()
-        .set("offset", page)
-        .set("pageSize", size)
-        .set("sortBy", `${sortBy},${sortDirection}`);
-    }
-
-    return this.http.get<{ content: Subject[], totalElements: number }>(url, { params }).pipe(
-      map(response => ({
-        content: response.content,
-        totalElements: response.totalElements
-      }))
-    );
   }
 }

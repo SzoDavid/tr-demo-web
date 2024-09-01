@@ -30,6 +30,11 @@
       <td mat-cell *matCellDef="let course">{{ course.registeredStudentCount }}/{{ course.capacity }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef>Időpont</th>
+      <td mat-cell *matCellDef="let course">{{ course.day|dayFormat }} {{ course.startTime }}-{{ course.endTime }}</td>
+    </ng-container>
+
     <ng-container matColumnDef="teacher">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Tanár</th>
       <td mat-cell *matCellDef="let course" class="last-cell">

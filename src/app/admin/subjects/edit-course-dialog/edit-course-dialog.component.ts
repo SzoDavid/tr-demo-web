@@ -31,7 +31,10 @@ export class EditCourseDialogComponent {
     this.course = data.course;
     this.editCourseForm = this.fb.group({
       capacity: [data.course.capacity, [Validators.required, Validators.min(data.course.registeredStudentCount)]],
-      teacherId: [data.course.teacher.id, Validators.required]
+      teacherId: [data.course.teacher.id, Validators.required],
+      day: [data.course.day, Validators.required],
+      startTime: [data.course.startTime, Validators.required],
+      endTime: [data.course.endTime, Validators.required],
     });
   }
 
@@ -62,6 +65,11 @@ export class EditCourseDialogComponent {
       id: this.course.id,
       capacity: this.getFieldValue('capacity'),
       teacherId: this.getFieldValue('teacherId'),
+      schedule: {
+        day: this.getFieldValue('day'),
+        startTime: this.getFieldValue('startTime'),
+        endTime: this.getFieldValue('endTime')
+      }
     }).subscribe({
       next: (response) => {
         this.loading = false;

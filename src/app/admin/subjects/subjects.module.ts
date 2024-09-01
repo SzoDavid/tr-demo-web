@@ -24,6 +24,7 @@ import {NewCourseDialogComponent} from './new-course-dialog/new-course-dialog.co
 import {EditCourseDialogComponent} from './edit-course-dialog/edit-course-dialog.component';
 import {ReusableTableModule} from "../../shared/reusable-table/reusable-table.module";
 import {ConfirmDialogModule} from "../../shared/confirm-dialog/confirm-dialog.module";
+import {DayFormatPipe} from "../../shared/pipes/day-format.pipe";
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import {ConfirmDialogModule} from "../../shared/confirm-dialog/confirm-dialog.mo
     MatButton,
     ReusableTableModule,
     ConfirmDialogModule,
+    DayFormatPipe,
   ]
 })
 export class SubjectsModule { }

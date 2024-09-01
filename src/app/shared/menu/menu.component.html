@@ -14,7 +14,7 @@
   <a *ngIf="loggedIn && isStudent" mat-list-item routerLink="/student/taken-courses" (click)="close()">
     <span>Felvett kurzusok</span>
   </a>
-  <a *ngIf="loggedIn && isTeacher" mat-list-item routerLink="/teacher" (click)="close()">
+  <a *ngIf="loggedIn && isTeacher" mat-list-item routerLink="/teacher/assigned-courses" (click)="close()">
     <span>Kurzusok</span>
   </a>
   <a *ngIf="loggedIn" mat-list-item routerLink="/profile" (click)="close()">

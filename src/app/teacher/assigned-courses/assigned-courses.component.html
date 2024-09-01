@@ -1,17 +1,18 @@
 <div class="main_component">
   <div class="title-bar">
-    <h1>Felvett kurzusok</h1>
-    <button mat-icon-button matTooltip="Órarend"
-            [matTooltipShowDelay]="1000"
-            (click)="openTimetableDialog()">
-      <mat-icon>calendar_month</mat-icon>
-    </button>
+    <h1>Kurzusok</h1>
   </div>
   <app-reusable-table
     [columns]="columns"
     [actionsTemplate]="actionsTemplate"
-    [fetchData]="courseService.getTaken.bind(courseService)"></app-reusable-table>
+    [fetchData]="courseService.getAssigned.bind(courseService)"></app-reusable-table>
   <ng-template #actionsTemplate let-element>
+    <button mat-icon-button
+            matTooltip="Hallgató lista letöltése"
+            [matTooltipShowDelay]="1000"
+            (click)="onDownloadStudentList(element)">
+      <mat-icon>download</mat-icon>
+    </button>
     <button mat-icon-button
             matTooltip="Részletek"
             [matTooltipShowDelay]="1000"
