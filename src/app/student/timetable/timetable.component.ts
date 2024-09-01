@@ -16,7 +16,6 @@ export class TimetableComponent {
   ngOnInit() {
     this.timetableService.getTimetableTiles().then(
       response => {
-        console.log(response);
         this.tiles = response.tiles;
         this.rowHeight /= response.interval;
       }

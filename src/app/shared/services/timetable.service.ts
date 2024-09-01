@@ -104,7 +104,7 @@ export class TimetableService {
   }
 
   private generateHeaders(): string[] {
-    return Array.from({length: timetableConstants.endHour - timetableConstants.startHour + 1},
+    return Array.from({length: timetableConstants.endHour - timetableConstants.startHour},
       (_, i) => `${timetableConstants.startHour + i}:00`);
   }
 
