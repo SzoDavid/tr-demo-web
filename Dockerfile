@@ -1,11 +1,18 @@
-FROM node:20.16.0
+FROM node:20.16.0 as build
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . /usr/src/app
-
-RUN npm install -g @angular/cli
-
+COPY package*.json ./
 RUN npm install
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+COPY . .
+RUN npm install -g @angular/cli
+RUN ng build --configuration=production
+
+FROM nginx:latest
+
+COPY --from=build /app/dist/tr-demo-web/browser /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
