@@ -11,6 +11,11 @@ export interface UserPage {
   totalElements: number
 }
 
+export interface StudentPage {
+  content: { user: User, grade: number|undefined }[],
+  totalElements: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,14 +48,17 @@ export class UserService {
     );
   }
 
-  getStudentsByCourse(id: number, page: number, size: number, sortBy: string, sortDirection: string): Observable<UserPage> {
+  getStudentsByCourse(id: number, page: number, size: number, sortBy: string, sortDirection: string): Observable<StudentPage> {
     return this.paginationService.getPaginated<any>(`/api/teacher/courses/${id}/students`, page, size, sortBy, sortDirection).pipe(
       map(response => ({
-        content: response.content.map(user => ({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          roles: user.roles.map((role: any) => role.name)
+        content: response.content.map(content => ({
+          user: {
+            id: content.user.id,
+            name: content.user.name,
+            email: content.user.email,
+            roles: content.user.roles.map((role: any) => role.name)
+          },
+          grade: content.grade
         })),
         totalElements: response.totalElements
       }))

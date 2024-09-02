@@ -5,6 +5,7 @@ import {SubjectTypeFormatPipe} from "../../shared/pipes/subject-type-format.pipe
 import {DayFormatPipe} from "../../shared/pipes/day-format.pipe";
 import {CourseService} from "../../shared/services/course.service";
 import {UserService} from "../../shared/services/user.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-assigned-courses',
@@ -23,11 +24,13 @@ export class AssignedCoursesComponent {
   constructor(protected courseService: CourseService,
               private subjectTypeFormat: SubjectTypeFormatPipe,
               private dayFormat: DayFormatPipe,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   onDetails(course: Course) {
-
+    this.router.navigate(['./', course.id], {relativeTo: this.route});
   }
 
   onDownloadStudentList(course: Course) {

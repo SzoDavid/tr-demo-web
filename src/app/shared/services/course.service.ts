@@ -9,6 +9,16 @@ export interface CoursePage {
   totalElements: number
 }
 
+export interface TakenCourse {
+  course: Course,
+  grade: number|undefined
+}
+
+export interface TakenCoursePage {
+  content: TakenCourse[],
+  totalElements: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,8 +38,8 @@ export class CourseService {
     return this.http.delete<{ success: boolean, message: string }>(`/api/admin/courses/${id}`);
   }
 
-  getTaken(page: number, size: number, sortBy: string, sortDirection: string): Observable<CoursePage> {
-    return this.paginationService.getPaginated<Course>('/api/student/taken-courses', page, size, sortBy, sortDirection);
+  getTaken(page: number, size: number, sortBy: string, sortDirection: string): Observable<TakenCoursePage> {
+    return this.paginationService.getPaginated<TakenCourse>('/api/student/taken-courses', page, size, sortBy, sortDirection);
   }
 
   getTakenOfSubject(subjectId: number): Observable<Course> {
@@ -38,6 +48,10 @@ export class CourseService {
 
   getAssigned(page: number, size: number, sortBy: string, sortDirection: string): Observable<CoursePage> {
     return this.paginationService.getPaginated<Course>('/api/teacher/courses', page, size, sortBy, sortDirection);
+  }
+
+  getAssignedById(id: number): Observable<Course> {
+    return this.http.get<Course>(`/api/teacher/courses/${id}`);
   }
 
   registerCourse(id: number): Observable<{ success: boolean, message: string }> {

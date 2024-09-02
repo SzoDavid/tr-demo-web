@@ -1,0 +1,28 @@
+<div class="main_component">
+  <div class="title-bar">
+    <button mat-icon-button matTooltip="Vissza"
+            [matTooltipShowDelay]="1000"
+            [routerLink]="['../']">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 *ngIf="course">{{course.subject.name}}</h1>
+    <h2 *ngIf="course">{{course.day|dayFormat}} {{course.startTime}}-{{course.endTime}} ({{course.registeredStudentCount}}/{{course.capacity}})</h2>
+    <button mat-icon-button matTooltip="Hallgató lista letöltése"
+            [matTooltipShowDelay]="1000"
+            (click)="onDownloadStudentList()">
+      <mat-icon>download</mat-icon>
+    </button>
+  </div>
+  <app-reusable-table *ngIf="course"
+    [columns]="columns"
+    [actionsTemplate]="actionsTemplate"
+    [fetchData]="fetchStudents.bind(this)"></app-reusable-table>
+  <ng-template #actionsTemplate let-element>
+    <button mat-icon-button
+            matTooltip="Osztályzás"
+            [matTooltipShowDelay]="1000"
+            (click)="onGradeStudent(element)">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+  </ng-template>
+</div>
