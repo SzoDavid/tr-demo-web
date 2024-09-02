@@ -3,13 +3,11 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../shared/services/course.service";
 import {Course} from "../../shared/schemas/course.schema";
 import {ColumnDefinition} from "../../shared/reusable-table/reusable-table.component";
-import {User} from "../../shared/schemas/user.schema";
 import {UserService} from "../../shared/services/user.service";
-
-interface Student {
-  user: User;
-  grade: number|undefined;
-}
+import {Student} from "../../shared/schemas/student.schema";
+import {dialogConstants} from "../../shared/constants";
+import {GradeDialogComponent} from "../grade-dialog/grade-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-teacher-course-details',
@@ -28,7 +26,8 @@ export class TeacherCourseDetailsComponent {
   constructor(private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
-              private courseService: CourseService) {
+              private courseService: CourseService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -57,6 +56,10 @@ export class TeacherCourseDetailsComponent {
   }
 
   onGradeStudent(student: any) {
-
+    const dialogRef = this.dialog.open(GradeDialogComponent,
+      { width: dialogConstants.width.new, data: { student: student, courseId: this.course!.id }});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.loadData();
+    });
   }
 }

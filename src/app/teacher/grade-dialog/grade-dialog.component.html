@@ -1,1 +1,22 @@
-<p>grade-dialog works!</p>
+<h1 mat-dialog-title>{{ student.user.name }} ({{ student.user.id }}) osztályzása</h1>
+<form [formGroup]="gradeForm">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Osztályzat</mat-label>
+      <mat-select formControlName="grade">
+        <mat-option *ngFor="let grade of [1, 2, 3, 4, 5]"
+                    [value]="grade">{{ grade }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <p *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </p>
+
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="accent" (click)="saveGrade()">Mentés</button>
+    <button mat-raised-button (click)="onCancel()">Mégse</button>
+  </mat-dialog-actions>
+</form>

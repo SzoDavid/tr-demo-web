@@ -65,21 +65,6 @@ export class UserService {
     );
   }
 
-  gradeStudent(courseId: number, studentId: number, grade: number): Observable<{ success: boolean, message: string }> {
-    return this.grade(courseId, [{studentId, grade}]);
-  }
-
-  gradeStudentBulk(courseId: number, file: File) {
-    const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-      const csv = e.target.result;
-
-    }
-
-    reader.readAsDataURL(file);
-  }
-
   create(user: CreateUser): Observable<User> {
     return this.http.post<User>('/api/admin/users', user);
   }
@@ -112,12 +97,5 @@ export class UserService {
       }
       saveAs(response.body!, filename);
     });
-  }
-
-  private grade(courseId: number, grades: { studentId: number, grade: number}[]): Observable<{ success: boolean, message: string }> {
-    return this.http.post<{ success: boolean, message: string }>(`/api/teacher/courses/${courseId}/grades`, grades.reduce((acc, grade) => {
-      acc[grade.studentId] = grade.grade;
-      return acc;
-    }, {} as { [key: number]: number }));
   }
 }
