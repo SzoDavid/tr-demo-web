@@ -15,13 +15,26 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatProgressBar} from "@angular/material/progress-bar";
+import { ConfirmGradesDialogComponent } from './confirm-grades-dialog/confirm-grades-dialog.component';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from "@angular/material/table";
+import {MatSort, MatSortHeader} from "@angular/material/sort";
+import {MatPaginator} from "@angular/material/paginator";
 
 
 @NgModule({
   declarations: [
     AssignedCoursesComponent,
     TeacherCourseDetailsComponent,
-    GradeDialogComponent
+    GradeDialogComponent,
+    ConfirmGradesDialogComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +53,20 @@ import {MatProgressBar} from "@angular/material/progress-bar";
     MatLabel,
     MatProgressBar,
     MatButton,
-    MatDialogActions
+    MatDialogActions,
+    MatTable,
+    MatSort,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatSortHeader,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatPaginator
   ]
 })
 export class TeacherModule { }

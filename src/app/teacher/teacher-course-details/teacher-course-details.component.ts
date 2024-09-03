@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../shared/services/course.service";
 import {Course} from "../../shared/schemas/course.schema";
-import {ColumnDefinition} from "../../shared/reusable-table/reusable-table.component";
+import {ColumnDefinition, ReusableTableComponent} from "../../shared/reusable-table/reusable-table.component";
 import {UserService} from "../../shared/services/user.service";
 import {Student} from "../../shared/schemas/student.schema";
 import {dialogConstants} from "../../shared/constants";
 import {GradeDialogComponent} from "../grade-dialog/grade-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {GradeService} from "../../shared/services/grade.service";
+import {ConfirmGradesDialogComponent} from "../confirm-grades-dialog/confirm-grades-dialog.component";
 
 @Component({
   selector: 'app-teacher-course-details',
@@ -17,17 +19,20 @@ import {MatDialog} from "@angular/material/dialog";
 export class TeacherCourseDetailsComponent {
   course: Course|undefined;
   columns: Array<ColumnDefinition> = [
-    { def: 'id', header: 'ID', sortable: true, cell: (student: Student) => student.user.id},
-    { def: 'name', header: 'Név', sortable: true, cell: (student: Student) => student.user.name},
-    { def: 'email', header: 'E-mail', sortable: true, cell: (student: Student) => student.user.email},
-    { def: 'grade', header: 'Osztályzat', sortable: true, cell: (student: Student) => student.grade ?? '-'}
+    { def: 'student.id', header: 'ID', sortable: true, cell: (student: Student) => student.user.id},
+    { def: 'student.name', header: 'Név', sortable: true, cell: (student: Student) => student.user.name},
+    { def: 'student.email', header: 'E-mail', sortable: true, cell: (student: Student) => student.user.email},
+    { def: 'grade', header: 'Osztályzat', sortable: false, cell: (student: Student) => student.grade ?? '-'}
   ];
+
+  @ViewChild('tableComponent', {static: false}) reusableTable!: ReusableTableComponent;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
               private courseService: CourseService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private gradeService: GradeService) {
   }
 
   ngOnInit() {
@@ -59,7 +64,19 @@ export class TeacherCourseDetailsComponent {
     const dialogRef = this.dialog.open(GradeDialogComponent,
       { width: dialogConstants.width.new, data: { student: student, courseId: this.course!.id }});
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.loadData();
+      if (result && this.reusableTable) this.reusableTable.loadPage();
+    });
+  }
+
+  onGradeCsvUpload(files: FileList | null) {
+    if (!this.course || !files || !files[0]) return;
+
+    this.gradeService.loadStudentCsv(files[0]).then(value => {
+      const dialogRef = this.dialog.open(ConfirmGradesDialogComponent,
+        { width: dialogConstants.width.table, data: { courseId: this.course!.id, grades: value }});
+      dialogRef.afterClosed().subscribe(result => {
+        if (result && this.reusableTable) this.reusableTable.loadPage();
+      });
     });
   }
 }

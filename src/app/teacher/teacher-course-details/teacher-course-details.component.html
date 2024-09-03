@@ -8,12 +8,18 @@
     <h1 *ngIf="course">{{course.subject.name}}</h1>
     <h2 *ngIf="course">{{course.day|dayFormat}} {{course.startTime}}-{{course.endTime}} ({{course.registeredStudentCount}}/{{course.capacity}})</h2>
     <button mat-icon-button matTooltip="Hallgató lista letöltése"
-            [matTooltipShowDelay]="1000"
             (click)="onDownloadStudentList()">
       <mat-icon>download</mat-icon>
     </button>
+    <ng-container>
+      <input #file id="gradeCsvInput" name="gradeCsv" type="file" accept="text/csv" (change)="onGradeCsvUpload(file.files)">
+      <button (click)="file.click()" mat-icon-button
+              matTooltip="Osztályzat táblázat feltöltése 'id,name,grade' fejléccel">
+        <mat-icon>upload_file</mat-icon>
+      </button>
+    </ng-container>
   </div>
-  <app-reusable-table *ngIf="course"
+  <app-reusable-table #tableComponent *ngIf="course"
     [columns]="columns"
     [actionsTemplate]="actionsTemplate"
     [fetchData]="fetchStudents.bind(this)"></app-reusable-table>

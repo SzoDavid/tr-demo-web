@@ -1,6 +1,6 @@
 export const dialogConstants = {
   width: {
-    timetable: '900px',
+    table: '900px',
     new: '600px',
     edit: '600px',
     confirm: '300px'
