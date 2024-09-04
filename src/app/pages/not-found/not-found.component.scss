@@ -1,13 +1,11 @@
 .main_component {
-  max-width: 1000px !important;
-  padding-top: 200px !important;
+  @apply max-w-screen-lg pt-52;
 }
 
 h1 {
-  font-size: 150px;
-  margin-bottom: 75px;
+  @apply text-9xl mb-5;
 }
 
 h2 {
-  font-size: 30px;
+  @apply text-2xl;
 }

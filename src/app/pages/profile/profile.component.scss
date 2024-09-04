@@ -1,25 +1,15 @@
 .content {
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 700px;
+  @apply mt-5 mx-auto px-5 max-w-screen-md;
 }
 
 mat-card-title {
-  margin-bottom: 20px;
+  @apply mb-5;
 }
 
 .title {
-  font-weight: bold;
+  @apply font-bold;
 }
 
 button {
-  margin-top: 20px;
-  margin-right: 10px;
-}
-
-@media screen and (max-width: 800px) {
-  .content {
-    width: 90%;
-  }
+  @apply mt-5 mr-2.5;
 }

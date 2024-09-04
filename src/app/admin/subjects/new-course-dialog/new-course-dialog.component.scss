@@ -1,9 +1,4 @@
 mat-form-field, mat-select {
-  width: 100%;
+  @apply w-full;
 }
 
-.error-message {
-  padding-left: 5px;
-  color: red;
-  text-align: left;
-}

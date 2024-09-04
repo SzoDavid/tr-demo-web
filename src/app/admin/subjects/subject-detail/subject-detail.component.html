@@ -37,7 +37,7 @@
 
     <ng-container matColumnDef="teacher">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Tanár</th>
-      <td mat-cell *matCellDef="let course" class="last-cell">
+      <td mat-cell *matCellDef="let course" class="relative">
         <span matTooltip="id: {{ course.teacher.id }}, e-mail: {{ course.teacher.email }}">{{ course.teacher.name }}</span>
         <button mat-icon-button matTooltip="Szerkesztés"
                 [matTooltipShowDelay]="1000"
@@ -54,5 +54,6 @@
                  [length]="subject.courses.length"
                  [pageSize]="10"
                  [pageSizeOptions]="[10, 20, 50]"
-                 showFirstLastButtons></mat-paginator>
+                 showFirstLastButtons
+                 class="mb-5"></mat-paginator>
 </div>

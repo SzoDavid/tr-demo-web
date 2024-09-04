@@ -1,19 +1,11 @@
 mat-toolbar {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-}
+  @apply fixed z-40 top-0 left-0;
 
-mat-toolbar a:hover, mat-toolbar a:active {
-  color: lightgray;
-  cursor: pointer;
+  a:hover, a:focus, a:active {
+    @apply cursor-pointer text-gray-300;
+  }
 }
 
 mat-sidenav {
-  position: fixed;
-  z-index: 1001;
-  top: 0;
-  left: 0;
-  width: 250px;
+  @apply fixed z-50 top-0 left-0 w-60;
 }

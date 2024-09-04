@@ -1,71 +1,37 @@
-.title-bar {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.title-bar h1 {
-  font-weight: bold;
-  margin: 0 10px;
-}
-
 .mat-grid-tile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  font-weight: bold;
+  @apply flex items-center justify-center font-bold text-base;
 }
 
 .day {
-  border-left: 1px white solid;
-  background-color: #ececec;
-  color: #000;
-  text-transform: uppercase;
+  @apply bg-gray-100 text-black uppercase border-l border-white border-solid;
 }
 
 .time {
-  border-top: 1px white solid;
-  background-color: #e0e0e0;
-  color: #666;
-  text-align: right;
-}
+  @apply bg-gray-200 text-gray-500 text-right border-t border-white border-solid;
 
-.time .tile-content {
-  position: absolute;
-  top: 4px;
-  right: 10px;
+  .tile-content {
+    @apply absolute top-1 right-2.5;
+  }
 }
 
 .blank {
-  border-left: 1px #ececec solid;
-  background-color: white;
+  @apply bg-white border-l border-gray-100 border-solid;
 }
 
 .element {
-  background-color: #90caf9;
-  color: white;
-  border-radius: 4px;
-  text-align: center;
-  border: 2px white solid;
-  padding: 4px;
-  cursor: pointer;
-}
+  @apply bg-blue-400 text-white text-center
+  rounded border-2 border-white border-solid
+  p-1 cursor-pointer;
 
-.element:hover {
-  background-color: #9ed1fa;
-  border-color: #ececec;
-}
+  &:hover {
+    @apply border-gray-100 bg-blue-300;
+  }
 
-.element .tile-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px;
-  height: 100%;
-  text-align: left;
+  .tile-content {
+    @apply absolute top-0 left-0 p-2.5 h-full text-left;
+  }
 }
 
 mat-grid-list {
-  margin-bottom: 20px;
+  @apply mb-5;
 }

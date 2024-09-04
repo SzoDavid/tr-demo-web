@@ -12,7 +12,7 @@
       <mat-icon>download</mat-icon>
     </button>
     <ng-container>
-      <input #file id="gradeCsvInput" name="gradeCsv" type="file" accept="text/csv" (change)="onGradeCsvUpload(file.files)">
+      <input #file class="hidden" id="gradeCsvInput" name="gradeCsv" type="file" accept="text/csv" (change)="onGradeCsvUpload(file.files)">
       <button (click)="file.click()" mat-icon-button
               matTooltip="Osztályzat táblázat feltöltése 'id,name,grade' fejléccel">
         <mat-icon>upload_file</mat-icon>

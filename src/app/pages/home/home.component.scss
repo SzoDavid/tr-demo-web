@@ -1,16 +1,11 @@
 .main_component {
-  max-width: 1000px !important;
-  padding-top: 200px !important;
+  @apply max-w-screen-lg pt-52;
 }
 
 h1 {
-  font-weight: bolder;
-  font-size: 50px;
-  width: 100%;
-  text-align: center;
+  @apply font-bold text-5xl w-full text-center;
 }
 
 h2 {
-  width: 100%;
-  text-align: center;
+  @apply w-full text-center;
 }
