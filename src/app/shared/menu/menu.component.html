@@ -1,26 +1,20 @@
 <mat-nav-list>
-  <a mat-list-item routerLink="/" (click)="close()">
-    <span>Főoldal</span>
-  </a>
-  <a *ngIf="loggedIn && isAdmin" mat-list-item routerLink="/admin/users" (click)="close()">
-    <span>Felhasználók</span>
-  </a>
-  <a *ngIf="loggedIn && isAdmin" mat-list-item routerLink="/admin/subjects" (click)="close()">
-    <span>Tárgyak</span>
-  </a>
-  <a *ngIf="loggedIn && isStudent" mat-list-item routerLink="/student/available-subjects" (click)="close()">
-    <span>Elérhető tárgyak</span>
-  </a>
-  <a *ngIf="loggedIn && isStudent" mat-list-item routerLink="/student/taken-courses" (click)="close()">
-    <span>Felvett kurzusok</span>
-  </a>
-  <a *ngIf="loggedIn && isTeacher" mat-list-item routerLink="/teacher/assigned-courses" (click)="close()">
-    <span>Kurzusok</span>
-  </a>
-  <a *ngIf="loggedIn" mat-list-item routerLink="/profile" (click)="close()">
-    <span>Profil</span>
-  </a>
-  <a *ngIf="!loggedIn" mat-list-item routerLink="/login" (click)="close()">
-    <span>Bejelentkezés</span>
-  </a>
+  <a mat-list-item routerLink="/" (click)="close()">Főoldal</a>
+  <ng-container *ngIf="loggedIn; else notLoggedInTemplateRef">
+    <ng-container *ngIf="isAdmin">
+      <a mat-list-item routerLink="/admin/users" (click)="close()">Felhasználók</a>
+      <a mat-list-item routerLink="/admin/subjects" (click)="close()">Tárgyak</a>
+    </ng-container>
+    <ng-container *ngIf="isStudent">
+      <a mat-list-item routerLink="/student/available-subjects" (click)="close()">Elérhető tárgyak</a>
+      <a mat-list-item routerLink="/student/taken-courses" (click)="close()">Felvett kurzusok</a>
+    </ng-container>
+    <ng-container *ngIf="isTeacher">
+      <a mat-list-item routerLink="/teacher/assigned-courses" (click)="close()">Kurzusok</a>
+      <a mat-list-item routerLink="/profile" (click)="close()">Profil</a>
+    </ng-container>
+  </ng-container>
+  <ng-template #notLoggedInTemplateRef>
+    <a mat-list-item routerLink="/login" (click)="close()">Bejelentkezés</a>
+  </ng-template>
 </mat-nav-list>

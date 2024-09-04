@@ -19,13 +19,23 @@
       </div>
       <div class="hidden sm:flex flex-1 justify-end">
         <ul class="flex gap-4 navigation-items">
-          <li *ngIf="loggedIn && isAdmin"><a routerLink="/admin/users">Felhasználók</a></li>
-          <li *ngIf="loggedIn && isAdmin"><a routerLink="/admin/subjects">Tárgyak</a></li>
-          <li *ngIf="loggedIn && isStudent"><a routerLink="/student/available-subjects">Elérhető tárgyak</a></li>
-          <li *ngIf="loggedIn && isStudent"><a routerLink="/student/taken-courses">Felvett kurzusok</a></li>
-          <li *ngIf="loggedIn && isTeacher"><a routerLink="/teacher/assigned-courses">Kurzusok</a></li>
-          <li *ngIf="loggedIn"><a routerLink="/profile">Profil</a></li>
-          <li *ngIf="!loggedIn"><a routerLink="/login">Bejelentkezés</a></li>
+          <ng-container *ngIf="loggedIn; else notLoggedInTemplateRef">
+            <ng-container *ngIf="isAdmin">
+              <li><a routerLink="/admin/users">Felhasználók</a></li>
+              <li><a routerLink="/admin/subjects">Tárgyak</a></li>
+            </ng-container>
+            <ng-container *ngIf="isStudent">
+              <li><a routerLink="/student/available-subjects">Elérhető tárgyak</a></li>
+              <li><a routerLink="/student/taken-courses">Felvett kurzusok</a></li>
+            </ng-container>
+            <ng-container>
+              <li><a routerLink="/teacher/assigned-courses">Kurzusok</a></li>
+            </ng-container>
+            <li><a routerLink="/profile">Profil</a></li>
+          </ng-container>
+          <ng-template #notLoggedInTemplateRef>
+            <li><a routerLink="/login">Bejelentkezés</a></li>
+          </ng-template>
         </ul>
       </div>
     </mat-toolbar>

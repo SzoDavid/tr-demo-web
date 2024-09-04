@@ -29,7 +29,7 @@ export const ROUTES: Route[] = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.component').then(m => m.LoginComponent),
+    loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent),
     canActivate: [accountGuard]
   },
   { path: 'not-found',
