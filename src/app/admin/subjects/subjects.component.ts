@@ -8,12 +8,17 @@ import {dialogConstants} from "../../shared/constants";
 import {SubjectTypeFormatPipe} from "../../shared/pipes/subject-type-format.pipe";
 import {ColumnDefinition, ReusableTableComponent} from "../../shared/reusable-table/reusable-table.component";
 import {ActivatedRoute, Router} from "@angular/router";
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-subjects',
-  templateUrl: './subjects.component.html',
-  styleUrl: './subjects.component.scss',
-  providers: [SubjectTypeFormatPipe]
+    selector: 'app-subjects',
+    templateUrl: './subjects.component.html',
+    styleUrl: './subjects.component.scss',
+    providers: [SubjectTypeFormatPipe],
+    standalone: true,
+    imports: [MatIconButton, MatTooltip, MatIcon, ReusableTableComponent]
 })
 export class SubjectsComponent {
   columns: Array<ColumnDefinition> = [

@@ -1,17 +1,26 @@
 import {Component, Inject} from '@angular/core';
 import {Subject} from "../../../shared/schemas/subject.schema";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
 import {User} from "../../../shared/schemas/user.schema";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SubjectService} from "../../../shared/services/subject.service";
 import {snackBarConstants} from "../../../shared/constants";
+import { DayFormatPipe } from '../../../shared/pipes/day-format.pipe';
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgFor, NgIf } from '@angular/common';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-new-course-dialog',
-  templateUrl: './new-course-dialog.component.html',
-  styleUrl: './new-course-dialog.component.scss'
+    selector: 'app-new-course-dialog',
+    templateUrl: './new-course-dialog.component.html',
+    styleUrl: './new-course-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, ReactiveFormsModule, MatDialogContent, MatFormField, MatLabel, MatInput, MatSelect, MatOption, NgFor, NgIf, MatProgressBar, MatDialogActions, MatButton, DayFormatPipe]
 })
 export class NewCourseDialogComponent {
   subject: Subject;
@@ -76,7 +85,7 @@ export class NewCourseDialogComponent {
       },
       error: (err: any) => {
         this.loading = false;
-        this.errorMessage = err.error;
+        this.errorMessage = err.error.errors.join('<br>');
         console.error('Create course error:', err);
       }
     });

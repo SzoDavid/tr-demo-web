@@ -1,12 +1,19 @@
 import {Component} from '@angular/core';
-import {Router} from "@angular/router";
-import {MatSidenav} from "@angular/material/sidenav";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from "@angular/material/sidenav";
 import {AuthService} from "./shared/services/auth.service";
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MenuComponent } from './shared/menu/menu.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    standalone: true,
+    imports: [MatSidenavContainer, MatSidenav, MenuComponent, MatSidenavContent, MatToolbar, MatIconButton, MatIcon, RouterLink, NgIf, RouterOutlet]
 })
 export class AppComponent {
   routes = new Array<string>();

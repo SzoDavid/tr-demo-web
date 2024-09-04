@@ -1,19 +1,27 @@
 import {Component, ViewChild} from '@angular/core';
 import {Subject} from "../../shared/schemas/subject.schema";
-import {MatTableDataSource} from "@angular/material/table";
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from "@angular/material/table";
 import {Course} from "../../shared/schemas/course.schema";
 import {SubjectService} from "../../shared/services/subject.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {CourseService} from "../../shared/services/course.service";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import { MatSort, MatSortHeader } from "@angular/material/sort";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {snackBarConstants} from "../../shared/constants";
+import { DayFormatPipe } from '../../shared/pipes/day-format.pipe';
+import { SubjectTypeFormatPipe } from '../../shared/pipes/subject-type-format.pipe';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { NgIf, NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-student-subject-details',
-  templateUrl: './student-subject-details.component.html',
-  styleUrl: './student-subject-details.component.scss'
+    selector: 'app-student-subject-details',
+    templateUrl: './student-subject-details.component.html',
+    styleUrl: './student-subject-details.component.scss',
+    standalone: true,
+    imports: [NgIf, MatIconButton, MatTooltip, RouterLink, MatIcon, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, NgClass, MatPaginator, SubjectTypeFormatPipe, DayFormatPipe]
 })
 export class StudentSubjectDetailsComponent {
   subject: Subject = {

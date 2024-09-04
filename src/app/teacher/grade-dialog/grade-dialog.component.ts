@@ -1,15 +1,22 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
 import {Student} from "../../shared/schemas/student.schema";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import {GradeService} from "../../shared/services/grade.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {snackBarConstants} from "../../shared/constants";
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgFor, NgIf } from '@angular/common';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-grade-dialog',
-  templateUrl: './grade-dialog.component.html',
-  styleUrl: './grade-dialog.component.scss'
+    selector: 'app-grade-dialog',
+    templateUrl: './grade-dialog.component.html',
+    styleUrl: './grade-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, ReactiveFormsModule, MatDialogContent, MatFormField, MatLabel, MatSelect, NgFor, MatOption, NgIf, MatProgressBar, MatDialogActions, MatButton]
 })
 export class GradeDialogComponent {
   courseId: number;

@@ -1,16 +1,22 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
 import {User} from "../../../shared/schemas/user.schema";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 import {dialogConstants, snackBarConstants} from "../../../shared/constants";
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgIf } from '@angular/common';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-edit-dialog',
-  templateUrl: './edit-dialog.component.html',
-  styleUrl: './edit-dialog.component.scss'
+    selector: 'app-edit-dialog',
+    templateUrl: './edit-dialog.component.html',
+    styleUrl: './edit-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, ReactiveFormsModule, MatDialogContent, MatCheckbox, NgIf, MatProgressBar, MatDialogActions, MatButton]
 })
 export class EditDialogComponent {
   user: User;

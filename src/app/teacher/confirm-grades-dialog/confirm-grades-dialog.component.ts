@@ -1,16 +1,21 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {GradeListItem, GradeService} from "../../shared/services/grade.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {MatTableDataSource} from "@angular/material/table";
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import { MatSort, MatSortHeader } from "@angular/material/sort";
 import {snackBarConstants} from "../../shared/constants";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-confirm-grades-dialog',
-  templateUrl: './confirm-grades-dialog.component.html',
-  styleUrl: './confirm-grades-dialog.component.scss'
+    selector: 'app-confirm-grades-dialog',
+    templateUrl: './confirm-grades-dialog.component.html',
+    styleUrl: './confirm-grades-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, MatDialogContent, MatTable, MatSort, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, NgIf, MatProgressBar, MatDialogActions, MatButton]
 })
 export class ConfirmGradesDialogComponent {
   courseId: number;

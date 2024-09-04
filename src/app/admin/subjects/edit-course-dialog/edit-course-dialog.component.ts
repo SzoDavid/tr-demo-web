@@ -1,18 +1,27 @@
 import {Component, Inject} from '@angular/core';
 import {Course} from "../../../shared/schemas/course.schema";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
 import {User} from "../../../shared/schemas/user.schema";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CourseService} from "../../../shared/services/course.service";
 import {dialogConstants, snackBarConstants} from "../../../shared/constants";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
+import { DayFormatPipe } from '../../../shared/pipes/day-format.pipe';
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgFor, NgIf } from '@angular/common';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-edit-course-dialog',
-  templateUrl: './edit-course-dialog.component.html',
-  styleUrl: './edit-course-dialog.component.scss'
+    selector: 'app-edit-course-dialog',
+    templateUrl: './edit-course-dialog.component.html',
+    styleUrl: './edit-course-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, ReactiveFormsModule, MatDialogContent, MatFormField, MatLabel, MatInput, MatSelect, MatOption, NgFor, NgIf, MatProgressBar, MatDialogActions, MatButton, DayFormatPipe]
 })
 export class EditCourseDialogComponent {
   course: Course;

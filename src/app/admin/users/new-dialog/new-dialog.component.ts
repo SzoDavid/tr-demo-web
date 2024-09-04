@@ -1,15 +1,23 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatDialogRef} from "@angular/material/dialog";
+import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
 import {snackBarConstants} from "../../../shared/constants";
 import {PasswordValidator} from "../../../shared/validators/password.validator";
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgIf } from '@angular/common';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-new-dialog',
-  templateUrl: './new-dialog.component.html',
-  styleUrl: './new-dialog.component.scss'
+    selector: 'app-new-dialog',
+    templateUrl: './new-dialog.component.html',
+    styleUrl: './new-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, ReactiveFormsModule, MatDialogContent, MatFormField, MatLabel, MatInput, MatCheckbox, NgIf, MatProgressBar, MatDialogActions, MatButton]
 })
 export class NewDialogComponent {
   createUserForm: FormGroup;

@@ -7,11 +7,16 @@ import {ChangePasswordDialogComponent} from "./change-password-dialog/change-pas
 import {dialogConstants, snackBarConstants} from "../../shared/constants";
 import {CourseService} from "../../shared/services/course.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import { NgIf, DecimalPipe } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardActions } from '@angular/material/card';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss',
+    standalone: true,
+    imports: [MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatButton, MatCardActions, NgIf, DecimalPipe]
 })
 export class ProfileComponent {
   user: User;

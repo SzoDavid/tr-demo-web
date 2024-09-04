@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
-import {ColumnDefinition} from "../../shared/reusable-table/reusable-table.component";
+import { ColumnDefinition, ReusableTableComponent } from "../../shared/reusable-table/reusable-table.component";
 import {Course} from "../../shared/schemas/course.schema";
 import {SubjectTypeFormatPipe} from "../../shared/pipes/subject-type-format.pipe";
 import {DayFormatPipe} from "../../shared/pipes/day-format.pipe";
 import {CourseService} from "../../shared/services/course.service";
 import {UserService} from "../../shared/services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-assigned-courses',
-  templateUrl: './assigned-courses.component.html',
-  styleUrl: './assigned-courses.component.scss',
-  providers: [SubjectTypeFormatPipe, DayFormatPipe]
+    selector: 'app-assigned-courses',
+    templateUrl: './assigned-courses.component.html',
+    styleUrl: './assigned-courses.component.scss',
+    providers: [SubjectTypeFormatPipe, DayFormatPipe],
+    standalone: true,
+    imports: [ReusableTableComponent, MatIconButton, MatTooltip, MatIcon]
 })
 export class AssignedCoursesComponent {
   columns: Array<ColumnDefinition> = [

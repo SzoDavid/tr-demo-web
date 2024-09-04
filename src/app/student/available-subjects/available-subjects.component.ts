@@ -1,15 +1,20 @@
 import {Component} from '@angular/core';
 import {Subject} from "../../shared/schemas/subject.schema";
 import {SubjectService} from "../../shared/services/subject.service";
-import {ColumnDefinition} from "../../shared/reusable-table/reusable-table.component";
+import { ColumnDefinition, ReusableTableComponent } from "../../shared/reusable-table/reusable-table.component";
 import {SubjectTypeFormatPipe} from "../../shared/pipes/subject-type-format.pipe";
 import {ActivatedRoute, Router} from "@angular/router";
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-available-subjects',
-  templateUrl: './available-subjects.component.html',
-  styleUrl: './available-subjects.component.scss',
-  providers: [SubjectTypeFormatPipe]
+    selector: 'app-available-subjects',
+    templateUrl: './available-subjects.component.html',
+    styleUrl: './available-subjects.component.scss',
+    providers: [SubjectTypeFormatPipe],
+    standalone: true,
+    imports: [ReusableTableComponent, MatIconButton, MatTooltip, MatIcon]
 })
 export class AvailableSubjectsComponent {
   columns: Array<ColumnDefinition> = [

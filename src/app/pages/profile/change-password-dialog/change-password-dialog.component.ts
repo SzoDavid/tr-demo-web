@@ -1,15 +1,22 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatDialogRef} from "@angular/material/dialog";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
+import { MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
 import {UserService} from "../../../shared/services/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {PasswordValidator} from "../../../shared/validators/password.validator";
 import {snackBarConstants} from "../../../shared/constants";
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgIf } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-change-password-dialog',
-  templateUrl: './change-password-dialog.component.html',
-  styleUrl: './change-password-dialog.component.scss'
+    selector: 'app-change-password-dialog',
+    templateUrl: './change-password-dialog.component.html',
+    styleUrl: './change-password-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, ReactiveFormsModule, MatDialogContent, MatFormField, MatLabel, MatInput, NgIf, MatProgressBar, MatDialogActions, MatButton]
 })
 export class ChangePasswordDialogComponent {
   changePasswordForm: FormGroup;

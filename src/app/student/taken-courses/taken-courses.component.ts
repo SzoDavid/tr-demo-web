@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
-import {ColumnDefinition} from "../../shared/reusable-table/reusable-table.component";
+import { ColumnDefinition, ReusableTableComponent } from "../../shared/reusable-table/reusable-table.component";
 import {CourseService, TakenCourse} from "../../shared/services/course.service";
 import {SubjectTypeFormatPipe} from "../../shared/pipes/subject-type-format.pipe";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {DayFormatPipe} from "../../shared/pipes/day-format.pipe";
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-taken-courses',
-  templateUrl: './taken-courses.component.html',
-  styleUrl: './taken-courses.component.scss',
-  providers: [SubjectTypeFormatPipe, DayFormatPipe]
+    selector: 'app-taken-courses',
+    templateUrl: './taken-courses.component.html',
+    styleUrl: './taken-courses.component.scss',
+    providers: [SubjectTypeFormatPipe, DayFormatPipe],
+    standalone: true,
+    imports: [MatIconButton, MatTooltip, RouterLink, MatIcon, ReusableTableComponent]
 })
 export class TakenCoursesComponent {
   columns: Array<ColumnDefinition> = [

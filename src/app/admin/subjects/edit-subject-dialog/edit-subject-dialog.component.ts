@@ -1,16 +1,24 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions } from "@angular/material/dialog";
 import {Subject} from "../../../shared/schemas/subject.schema";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import {ConfirmDialogComponent} from "../../../shared/confirm-dialog/confirm-dialog.component";
 import {SubjectService} from "../../../shared/services/subject.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {dialogConstants, snackBarConstants} from "../../../shared/constants";
+import { MatButton } from '@angular/material/button';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { NgIf } from '@angular/common';
+import { MatSelect, MatOption } from '@angular/material/select';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-edit-subject-dialog',
-  templateUrl: './edit-subject-dialog.component.html',
-  styleUrl: './edit-subject-dialog.component.scss'
+    selector: 'app-edit-subject-dialog',
+    templateUrl: './edit-subject-dialog.component.html',
+    styleUrl: './edit-subject-dialog.component.scss',
+    standalone: true,
+    imports: [MatDialogTitle, ReactiveFormsModule, MatDialogContent, MatFormField, MatLabel, MatInput, MatSelect, MatOption, NgIf, MatProgressBar, MatDialogActions, MatButton]
 })
 export class EditSubjectDialogComponent {
   subject: Subject;

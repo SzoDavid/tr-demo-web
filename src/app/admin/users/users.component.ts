@@ -7,12 +7,17 @@ import {NewDialogComponent} from "./new-dialog/new-dialog.component";
 import {dialogConstants} from "../../shared/constants";
 import {RoleFormatPipe} from "../../shared/pipes/role-format.pipe";
 import {ColumnDefinition, ReusableTableComponent} from "../../shared/reusable-table/reusable-table.component";
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrl: './users.component.scss',
-  providers: [RoleFormatPipe]
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    styleUrl: './users.component.scss',
+    providers: [RoleFormatPipe],
+    standalone: true,
+    imports: [MatIconButton, MatTooltip, MatIcon, ReusableTableComponent]
 })
 export class UsersComponent {
   columns: Array<ColumnDefinition> = [

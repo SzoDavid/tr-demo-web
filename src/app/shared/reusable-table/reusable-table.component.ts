@@ -1,8 +1,9 @@
 import {Component, Input, TemplateRef, ViewChild} from '@angular/core';
-import {MatTableDataSource} from "@angular/material/table";
+import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {MatSort} from "@angular/material/sort";
+import { MatSort, MatSortHeader } from "@angular/material/sort";
 import {Observable} from "rxjs";
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 
 export interface ColumnDefinition {
   def: string;
@@ -12,9 +13,11 @@ export interface ColumnDefinition {
 }
 
 @Component({
-  selector: 'app-reusable-table',
-  templateUrl: './reusable-table.component.html',
-  styleUrl: './reusable-table.component.scss'
+    selector: 'app-reusable-table',
+    templateUrl: './reusable-table.component.html',
+    styleUrl: './reusable-table.component.scss',
+    standalone: true,
+    imports: [MatTable, MatSort, NgFor, MatColumnDef, NgIf, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, NgTemplateOutlet, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class ReusableTableComponent {
   @Input() columns: Array<ColumnDefinition> = [];

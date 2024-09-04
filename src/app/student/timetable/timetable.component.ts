@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
 import {TimetableService, TimetableTile} from "../../shared/services/timetable.service";
+import { NgFor, NgClass, NgIf } from '@angular/common';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-timetable',
-  templateUrl: './timetable.component.html',
-  styleUrl: './timetable.component.scss'
+    selector: 'app-timetable',
+    templateUrl: './timetable.component.html',
+    styleUrl: './timetable.component.scss',
+    standalone: true,
+    imports: [MatIconButton, MatTooltip, RouterLink, MatIcon, MatGridList, NgFor, MatGridTile, NgClass, NgIf]
 })
 export class TimetableComponent {
   tiles: TimetableTile[] = [];

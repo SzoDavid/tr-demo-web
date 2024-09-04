@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {CourseService} from "../../shared/services/course.service";
 import {Course} from "../../shared/schemas/course.schema";
 import {ColumnDefinition, ReusableTableComponent} from "../../shared/reusable-table/reusable-table.component";
@@ -10,11 +10,18 @@ import {GradeDialogComponent} from "../grade-dialog/grade-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {GradeService} from "../../shared/services/grade.service";
 import {ConfirmGradesDialogComponent} from "../confirm-grades-dialog/confirm-grades-dialog.component";
+import { DayFormatPipe } from '../../shared/pipes/day-format.pipe';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-teacher-course-details',
-  templateUrl: './teacher-course-details.component.html',
-  styleUrl: './teacher-course-details.component.scss'
+    selector: 'app-teacher-course-details',
+    templateUrl: './teacher-course-details.component.html',
+    styleUrl: './teacher-course-details.component.scss',
+    standalone: true,
+    imports: [MatIconButton, MatTooltip, RouterLink, MatIcon, NgIf, ReusableTableComponent, DayFormatPipe]
 })
 export class TeacherCourseDetailsComponent {
   course: Course|undefined;
