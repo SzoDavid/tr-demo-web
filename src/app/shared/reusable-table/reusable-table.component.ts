@@ -5,11 +5,11 @@ import { MatSort, MatSortHeader } from "@angular/material/sort";
 import {Observable} from "rxjs";
 import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 
-export interface ColumnDefinition {
+export interface ColumnDefinition<T> {
   def: string;
   header: string;
   sortable: boolean;
-  cell: (element: any) => string | number | boolean
+  cell: (element: T) => string | number | boolean
 }
 
 @Component({
@@ -19,15 +19,15 @@ export interface ColumnDefinition {
     standalone: true,
     imports: [MatTable, MatSort, NgFor, MatColumnDef, NgIf, MatHeaderCellDef, MatHeaderCell, MatSortHeader, MatCellDef, MatCell, NgTemplateOutlet, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
-export class ReusableTableComponent {
-  @Input() columns: Array<ColumnDefinition> = [];
-  @Input() dataSource = new MatTableDataSource<any>();
+export class ReusableTableComponent<T> {
+  @Input() columns: Array<ColumnDefinition<T>> = [];
+  @Input() dataSource = new MatTableDataSource<T>();
   @Input() pageSizeOptions: number[] = [10, 20, 50];
   @Input() pageSize = 10;
   @Input() totalElements = 0;
   @Input() actionsTemplate!: TemplateRef<any>;
   @Input() fetchData?: (pageIndex: number, pageSize: number, sortBy: string, sortDirection: string) => Observable<{
-    content: any[];
+    content: T[];
     totalElements: number;
   }>;
 

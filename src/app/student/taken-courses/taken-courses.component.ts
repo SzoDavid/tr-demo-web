@@ -17,13 +17,13 @@ import { MatIconButton } from '@angular/material/button';
     imports: [MatIconButton, MatTooltip, RouterLink, MatIcon, ReusableTableComponent]
 })
 export class TakenCoursesComponent {
-  columns: Array<ColumnDefinition> = [
-    { def: 'course.id', header: 'ID', sortable: true, cell: (takenCourse: TakenCourse) => `${takenCourse.course.id}`},
-    { def: 'course.subject.name', header: 'Tárgy neve', sortable: true, cell: (takenCourse: TakenCourse) => `${takenCourse.course.subject.name} (${takenCourse.course.subject.id})`},
-    { def: 'course.day', header: 'Időpont', sortable: true, cell: (takenCourse: TakenCourse) => `${this.dayFormat.transform(takenCourse.course.day)} ${takenCourse.course.startTime}-${takenCourse.course.endTime}`},
-    { def: 'course.subject.type', header: 'Típus', sortable: true, cell: (takenCourse: TakenCourse) => `${this.subjectTypeFormat.transform(takenCourse.course.subject.type)}`},
-    { def: 'course.subject.credit', header: 'Kredit', sortable: true, cell: (takenCourse: TakenCourse) => `${takenCourse.course.subject.credit}`},
-    { def: 'grade', header: 'Osztályzat', sortable: false, cell: (takenCourse: TakenCourse) => `${takenCourse.grade ?? '-'}`}
+  columns: Array<ColumnDefinition<TakenCourse>> = [
+    { def: 'course.id', header: 'ID', sortable: true, cell: (takenCourse) => `${takenCourse.course.id}`},
+    { def: 'course.subject.name', header: 'Tárgy neve', sortable: true, cell: (takenCourse) => `${takenCourse.course.subject.name} (${takenCourse.course.subject.id})`},
+    { def: 'course.day', header: 'Időpont', sortable: true, cell: (takenCourse) => `${this.dayFormat.transform(takenCourse.course.day)} ${takenCourse.course.startTime}-${takenCourse.course.endTime}`},
+    { def: 'course.subject.type', header: 'Típus', sortable: true, cell: (takenCourse) => `${this.subjectTypeFormat.transform(takenCourse.course.subject.type)}`},
+    { def: 'course.subject.credit', header: 'Kredit', sortable: true, cell: (takenCourse) => `${takenCourse.course.subject.credit}`},
+    { def: 'grade', header: 'Osztályzat', sortable: false, cell: (takenCourse) => `${takenCourse.grade ?? '-'}`}
   ];
 
   constructor(protected courseService: CourseService,

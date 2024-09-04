@@ -42,6 +42,6 @@ export const ROUTES: Route[] = [
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'not-found'
   }
 ];

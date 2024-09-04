@@ -17,12 +17,12 @@ import { MatIconButton } from '@angular/material/button';
     imports: [ReusableTableComponent, MatIconButton, MatTooltip, MatIcon]
 })
 export class AvailableSubjectsComponent {
-  columns: Array<ColumnDefinition> = [
-    { def: 'id', header: 'ID', sortable: true, cell: (subject: Subject) => `${subject.id}`},
-    { def: 'name', header: 'Név', sortable: true, cell: (subject: Subject) => `${subject.name}`},
-    { def: 'type', header: 'Típus', sortable: true, cell: (subject: Subject) => `${this.subjectTypeFormat.transform(subject.type)}`},
-    { def: 'credit', header: 'Kredit', sortable: true, cell: (subject: Subject) => `${subject.credit}`},
-    { def: 'nCourses', header: 'Kurzusok', sortable: false, cell: (subject: Subject) => `${subject.courses.length}` }
+  columns: Array<ColumnDefinition<Subject>> = [
+    { def: 'id', header: 'ID', sortable: true, cell: (subject) => `${subject.id}`},
+    { def: 'name', header: 'Név', sortable: true, cell: (subject) => `${subject.name}`},
+    { def: 'type', header: 'Típus', sortable: true, cell: (subject) => `${this.subjectTypeFormat.transform(subject.type)}`},
+    { def: 'credit', header: 'Kredit', sortable: true, cell: (subject) => `${subject.credit}`},
+    { def: 'nCourses', header: 'Kurzusok', sortable: false, cell: (subject) => `${subject.courses.length}` }
   ];
 
   constructor(protected subjectService: SubjectService,

@@ -42,7 +42,7 @@ export class EditDialogComponent {
 
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue(field: string): boolean {
     return this.editUserForm.get(field)?.value;
   }
 
@@ -67,7 +67,7 @@ export class EditDialogComponent {
         this.dialogRef.close(true);
         this.snackBar.open(`Felhasználó sikeresen frissítve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
-      error: (err: any) => {
+      error: (err: any) => { //TODO: refactor error handling
         this.loading = false;
         this.errorMessage = err.error.errors.join('<br>');
         console.error('Edit error:', err);
@@ -96,7 +96,7 @@ export class EditDialogComponent {
           this.dialogRef.close(true);
           this.snackBar.open(`Felhasználó sikeresen törölve!`, 'OK', {duration: snackBarConstants.duration.success});
         },
-        error: (err: any) => {
+        error: (err: any) => { //TODO: refactor error handling
           this.loading = false;
           this.errorMessage = err.error;
           console.error('Delete error:', err);

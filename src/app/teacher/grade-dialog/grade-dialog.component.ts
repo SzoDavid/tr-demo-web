@@ -38,7 +38,7 @@ export class GradeDialogComponent {
     });
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue(field: string): number {
     return this.gradeForm.get(field)?.value;
   }
 

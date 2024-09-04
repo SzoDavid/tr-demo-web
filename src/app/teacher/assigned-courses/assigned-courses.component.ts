@@ -19,11 +19,11 @@ import { MatIconButton } from '@angular/material/button';
     imports: [ReusableTableComponent, MatIconButton, MatTooltip, MatIcon]
 })
 export class AssignedCoursesComponent {
-  columns: Array<ColumnDefinition> = [
-    { def: 'id', header: 'ID', sortable: true, cell: (course: Course) => `${course.id}`},
-    { def: 'subject.name', header: 'Tárgy neve', sortable: true, cell: (course: Course) => `${course.subject.name} (${course.subject.id})`},
-    { def: 'subject.type', header: 'Típus', sortable: true, cell: (course: Course) => `${this.subjectTypeFormat.transform(course.subject.type)}`},
-    { def: 'day', header: 'Időpont', sortable: true, cell: (course: Course) => `${this.dayFormat.transform(course.day)} ${course.startTime}-${course.endTime}`}
+  columns: Array<ColumnDefinition<Course>> = [
+    { def: 'id', header: 'ID', sortable: true, cell: (course) => `${course.id}`},
+    { def: 'subject.name', header: 'Tárgy neve', sortable: true, cell: (course) => `${course.subject.name} (${course.subject.id})`},
+    { def: 'subject.type', header: 'Típus', sortable: true, cell: (course) => `${this.subjectTypeFormat.transform(course.subject.type)}`},
+    { def: 'day', header: 'Időpont', sortable: true, cell: (course) => `${this.dayFormat.transform(course.day)} ${course.startTime}-${course.endTime}`}
   ];
 
   constructor(protected courseService: CourseService,

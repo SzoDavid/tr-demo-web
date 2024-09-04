@@ -36,7 +36,7 @@ export class ChangePasswordDialogComponent {
     });
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue(field: string): string {
     return this.changePasswordForm.get(field)?.value;
   }
 
@@ -51,7 +51,7 @@ export class ChangePasswordDialogComponent {
         this.dialogRef.close(true);
         this.snackBar.open('Jelszó sikeresen frissítve!', 'OK', {duration: snackBarConstants.duration.success});
       },
-      error: (err: any) => {
+      error: (err: any) => { //TODO: refactor error handling
         this.loading = false;
         this.errorMessage = err.error.errors.join('<br>');
         console.error('Update password error:', err);

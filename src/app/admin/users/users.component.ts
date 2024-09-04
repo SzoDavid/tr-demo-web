@@ -20,13 +20,13 @@ import { MatIconButton } from '@angular/material/button';
     imports: [MatIconButton, MatTooltip, MatIcon, ReusableTableComponent]
 })
 export class UsersComponent {
-  columns: Array<ColumnDefinition> = [
-    { def: 'id', header: 'ID', sortable: true, cell: (user: User) => `${user.id}`},
-    { def: 'name', header: 'Név', sortable: true, cell: (user: User) => `${user.name}`},
-    { def: 'email', header: 'E-mail', sortable: true, cell: (user: User) => `${user.email}`},
-    { def: 'roles', header: 'Szerepkör', sortable: true, cell: (user: User) => `${this.roleFormat.transform(user.roles)}`}
+  columns: Array<ColumnDefinition<User>> = [
+    { def: 'id', header: 'ID', sortable: true, cell: (user) => `${user.id}`},
+    { def: 'name', header: 'Név', sortable: true, cell: (user) => `${user.name}`},
+    { def: 'email', header: 'E-mail', sortable: true, cell: (user) => `${user.email}`},
+    { def: 'roles', header: 'Szerepkör', sortable: true, cell: (user) => `${this.roleFormat.transform(user.roles)}`}
   ];
-  @ViewChild('reusableTable') reusableTable?: ReusableTableComponent;
+  @ViewChild('reusableTable') reusableTable?: ReusableTableComponent<User>;
 
   constructor(protected userService: UserService,
               private dialog: MatDialog,

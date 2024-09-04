@@ -42,8 +42,8 @@ export class AppComponent {
     this.router.navigateByUrl(selectedPage);
   }
 
-  onSidenavClose(event: any, sidenav: MatSidenav) {
-    if (event === true) {
+  onSidenavClose(shouldClose: boolean, sidenav: MatSidenav) {
+    if (shouldClose) {
       sidenav.close();
     }
   }

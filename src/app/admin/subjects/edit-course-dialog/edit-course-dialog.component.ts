@@ -61,7 +61,7 @@ export class EditCourseDialogComponent {
     });
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue<T extends string | number>(field: string): T {
     return this.editCourseForm.get(field)?.value;
   }
 
@@ -115,7 +115,7 @@ export class EditCourseDialogComponent {
           this.dialogRef.close(true);
           this.snackBar.open(`Kurzus sikeresen törölve!`, 'OK', {duration: snackBarConstants.duration.success });
         },
-        error: (err: any) => {
+        error: (err: any) => { //TODO: refactor error handling
           this.loading = false;
           this.errorMessage = err.error;
           console.error('Delete error:', err);

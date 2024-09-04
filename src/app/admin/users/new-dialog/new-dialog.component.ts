@@ -39,7 +39,7 @@ export class NewDialogComponent {
       });
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue(field: string): string | boolean {
     return this.createUserForm.get(field)?.value;
   }
 
@@ -55,9 +55,9 @@ export class NewDialogComponent {
     if (this.getFieldValue('isStudent')) roles.push('STUDENT');
 
     this.userService.create({
-      email: this.getFieldValue('email'),
-      name: this.getFieldValue('name'),
-      password: this.getFieldValue('password'),
+      email: this.getFieldValue('email').toString(),
+      name: this.getFieldValue('name').toString(),
+      password: this.getFieldValue('password').toString(),
       roles: roles
     }).subscribe({
       next: (response) => {
@@ -65,7 +65,7 @@ export class NewDialogComponent {
         this.dialogRef.close(true);
         this.snackBar.open(`Felhasználó sikeresen mentve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
-      error: (err: any) => {
+      error: (err: any) => { //TODO: refactor error handling
         this.loading = false;
         this.errorMessage = err.error.errors.join('<br>');
         console.error('Create user error:', err);

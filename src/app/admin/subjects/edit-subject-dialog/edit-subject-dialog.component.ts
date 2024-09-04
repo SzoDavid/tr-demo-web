@@ -40,7 +40,7 @@ export class EditSubjectDialogComponent {
     });
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue<T extends number | string>(field: string): T {
     return this.editSubjectForm.get(field)?.value;
   }
 
@@ -58,7 +58,7 @@ export class EditSubjectDialogComponent {
         this.dialogRef.close(true);
         this.snackBar.open(`Tárgy sikeresen frissítve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
-      error: (err: any) => {
+      error: (err: any) => { //TODO: refactor error handling
         this.loading = false;
         this.errorMessage = err.error.errors.join('<br>');
         console.error('Edit error:', err);
@@ -88,7 +88,7 @@ export class EditSubjectDialogComponent {
           this.dialogRef.close(true);
           this.snackBar.open(`Tárgy sikeresen törölve!`, 'OK', {duration: snackBarConstants.duration.success});
         },
-        error: (err: any) => {
+        error: (err: any) => { //TODO: refactor error handling
           this.loading = false;
           this.errorMessage = err.error;
           console.error('Delete error:', err);

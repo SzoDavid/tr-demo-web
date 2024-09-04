@@ -25,14 +25,14 @@ import { MatIconButton } from '@angular/material/button';
 })
 export class TeacherCourseDetailsComponent {
   course: Course|undefined;
-  columns: Array<ColumnDefinition> = [
-    { def: 'student.id', header: 'ID', sortable: true, cell: (student: Student) => student.user.id},
-    { def: 'student.name', header: 'Név', sortable: true, cell: (student: Student) => student.user.name},
-    { def: 'student.email', header: 'E-mail', sortable: true, cell: (student: Student) => student.user.email},
-    { def: 'grade', header: 'Osztályzat', sortable: false, cell: (student: Student) => student.grade ?? '-'}
+  columns: Array<ColumnDefinition<Student>> = [
+    { def: 'student.id', header: 'ID', sortable: true, cell: (student) => student.user.id},
+    { def: 'student.name', header: 'Név', sortable: true, cell: (student) => student.user.name},
+    { def: 'student.email', header: 'E-mail', sortable: true, cell: (student) => student.user.email},
+    { def: 'grade', header: 'Osztályzat', sortable: false, cell: (student) => student.grade ?? '-'}
   ];
 
-  @ViewChild('tableComponent', {static: false}) reusableTable!: ReusableTableComponent;
+  @ViewChild('tableComponent', {static: false}) reusableTable!: ReusableTableComponent<Student>;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -67,7 +67,7 @@ export class TeacherCourseDetailsComponent {
     this.userService.downloadStudentCsv(this.course.id);
   }
 
-  onGradeStudent(student: any) {
+  onGradeStudent(student: Student) {
     const dialogRef = this.dialog.open(GradeDialogComponent,
       { width: dialogConstants.width.new, data: { student: student, courseId: this.course!.id }});
     dialogRef.afterClosed().subscribe(result => {

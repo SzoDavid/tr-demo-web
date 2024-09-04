@@ -29,7 +29,7 @@ export class LoginComponent {
       });
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue(field: string): string {
     return this.loginForm.get(field)?.value;
   }
 
@@ -45,7 +45,7 @@ export class LoginComponent {
         this.loading = false;
         this._router.navigate(['/']);
       },
-      error: (err: any) => {
+      error: (err: any) => { //TODO: refactor error handling
         this.loading = false;
         this.errorMessage = err.message;
         console.error('Login error:', err);

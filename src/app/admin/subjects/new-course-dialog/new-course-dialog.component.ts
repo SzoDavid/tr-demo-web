@@ -60,7 +60,7 @@ export class NewCourseDialogComponent {
     });
   }
 
-  getFieldValue(field: string): any {
+  getFieldValue<T extends number | string>(field: string): T {
     return this.createCourseForm.get(field)?.value;
   }
 
@@ -83,7 +83,7 @@ export class NewCourseDialogComponent {
         this.dialogRef.close(true);
         this.snackBar.open(`Kurzus sikeresen mentve! Id: ${response.id}`, 'OK', {duration: snackBarConstants.duration.success});
       },
-      error: (err: any) => {
+      error: (err: any) => { //TODO: refactor error handling
         this.loading = false;
         this.errorMessage = err.error.errors.join('<br>');
         console.error('Create course error:', err);
