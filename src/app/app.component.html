@@ -28,7 +28,7 @@
               <li><a routerLink="/student/available-subjects">Elérhető tárgyak</a></li>
               <li><a routerLink="/student/taken-courses">Felvett kurzusok</a></li>
             </ng-container>
-            <ng-container>
+            <ng-container *ngIf="isTeacher">
               <li><a routerLink="/teacher/assigned-courses">Kurzusok</a></li>
             </ng-container>
             <li><a routerLink="/profile">Profil</a></li>

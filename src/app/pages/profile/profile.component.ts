@@ -38,6 +38,8 @@ export class ProfileComponent {
       this.user = user;
       this.isStudent = user.roles.includes('ROLE_STUDENT');
 
+      if (!this.isStudent) return;
+
       this.courseService.getTaken(0, 1, '', '').subscribe({
         next: result => {
           this.takenCourses = result.totalElements;
